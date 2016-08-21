@@ -1,13 +1,4 @@
 *~
 
-*.aux
-*.log
-*.nav
-*.out
-*.pdf
-*.ptb
-*.snm
-*.toc
-
 generic-fft.tex
 web-token

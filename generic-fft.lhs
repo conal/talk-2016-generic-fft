@@ -57,13 +57,62 @@
 
 \setstretch{1.2}
 
+\graphicspath{{Figures/}}
+
 \begin{document}
+
+%% \partframe{\href{https://www.youtube.com/watch?v=k8FXF1KjzY0&list=PL6c1MWlBF2oY2vSJcylt6QkO2Gxz7RjsL}{Prelude}}
 
 \frame{\titlepage}
 
-%% \partframe{The story so far}
+%% \partframe{\href{http://i.imgur.com/BuO2INb.gif}{Paths from circles}}
 
-\framet{First slide}{
+\framet{Paths from circles}{
+
+\vspace{-1.8ex}
+\wfig{3in}{Farris/figs-1-2}
+\begin{center}
+\vspace{-7ex}
+\href{https://works.bepress.com/frank_farris/14/}{\tiny (source)}
+\end{center}
+\vspace{-3ex}
+
+\begin{itemize}\itemsep 0.5ex
+\item Circular motion:
+  \begin{itemize}
+  % \item Center
+  \item Radius
+  \item Speed/frequency
+  \item Starting angle
+  \end{itemize}
+\item Combine several motions: center of each follows path of previous.
+\item Observe final motion.
+\item \href{http://i.imgur.com/BuO2INb.gif}{Another example}
+\end{itemize}
+
+}
+
+%% \framet{More motion}{\href{http://i.imgur.com/BuO2INb.gif}{Square wave}}
+
+\framet{Questions}{
+
+\begin{itemize}
+\item Which motions can be generated in this way?
+\item How to generate the circular components for a given motion?
+\end{itemize}
+
+}
+
+
+\nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}} #2}
+
+\framet{Picture credits}{
+
+\begin{itemize}
+
+\pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
+
+\end{itemize}
 }
 
 \end{document}

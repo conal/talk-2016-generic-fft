@@ -1,7 +1,5 @@
 %% -*- latex -*-
 
-%% %let atwork = True
-
 % Presentation
 \documentclass{beamer}
 %\documentclass[handout]{beamer}
@@ -96,12 +94,37 @@
 
 \framet{Questions}{
 
-\begin{itemize}
+\vspace{-5ex}
+\wfig{2in}{circle-multi}
+\begin{center}
+\vspace{-5ex}
+\href{http://blog.ivank.net/fourier-transform-clarified.html}{\tiny (source)}
+\end{center}
+
+\begin{itemize}\itemsep 2ex
 \item Which motions can be generated in this way?
 \item How to generate the circular components for a given motion?
 \end{itemize}
 
 }
+
+\framet{Paths from circular motions}{
+
+%% \vspace{-3ex}
+
+$$x(t) = \sum_k (r_k \cos (2 \pi f_k t + a_k), r_k \sin (2 \pi f_k t + a_k))$$
+
+\ 
+
+More succinct in complex polar form and with $X_k = r_k e^{i a_k}$:
+$$x(t) = \sum_k X_k \, e ^ {i 2 \pi f_k t} \mbox{\ \ (inverse Fourier transform)}$$
+
+Discretize with $f_k = k$ and $t = n/N$, $0 \le k, n < N$:
+
+$$x_n = \sum_{0 \le k < N} X_k \, e ^ {i 2 \pi k n/N}$$
+
+}
+
 
 
 \nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}} #2}

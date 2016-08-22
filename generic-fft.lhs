@@ -1,7 +1,8 @@
 %% -*- latex -*-
 
 % Presentation
-\documentclass{beamer}
+%\documentclass[aspectratio=1610]{beamer} % Macbook Pro screen 16:10
+\documentclass{beamer} % default aspect ratio 4:3
 %\documentclass[handout]{beamer}
 
 \usefonttheme{serif}
@@ -65,7 +66,7 @@
 
 %% \partframe{\href{http://i.imgur.com/BuO2INb.gif}{Paths from circles}}
 
-\framet{Paths from circles}{
+\framet{Paths from circular motion}{
 
 \vspace{-1.8ex}
 \wfig{3in}{Farris/figs-1-2}
@@ -79,9 +80,9 @@
 \item Circular motion:
   \begin{itemize}
   % \item Center
-  \item Radius
-  \item Speed/frequency
-  \item Starting angle
+  \item Radius, $r$
+  \item Frequency/speed, $f$
+  \item Starting angle, $a$
   \end{itemize}
 \item Combine several motions: center of each follows path of previous.
 \item Observe final motion.
@@ -90,11 +91,31 @@
 
 }
 
-%% \framet{More motion}{\href{http://i.imgur.com/BuO2INb.gif}{Square wave}}
+\framet{Paths from circular motions}{
+
+%% \vspace{-3ex}
+
+%% $$x(t) = \sum_k (r_k \cos (2 \pi f_k t + a_k), r_k \sin (2 \pi f_k t + a_k))$$
+
+$$\sum_{(f,r,a) \in S} (r \cos (2 \pi f t + a), r \sin (2 \pi f t + a))$$
+
+\ 
+
+More succinct in complex polar form:
+$$ \sum_{(f,r,a) \in S} r \, e ^ {i (2 \pi f t + a)} $$
+
+Yet more succinct with $X_k = r_k e^{i a_k}$:
+$$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
+
+% \mbox{\ \ (inverse Fourier transform)}
+
+%% Discretize with $f_k = k$ and $t = n/N$, $0 \le k, n < N$: $$x_n = \sum_{0 \le k < N} X_k \, e ^ {i 2 \pi k n/N}$$
+
+}
 
 \framet{Questions}{
 
-\vspace{-5ex}
+\vspace{-4ex}
 \wfig{2in}{circle-multi}
 \begin{center}
 \vspace{-5ex}
@@ -106,26 +127,36 @@
 \item How to generate the circular components for a given motion?
 \end{itemize}
 
-}
-
-\framet{Paths from circular motions}{
-
-%% \vspace{-3ex}
-
-$$x(t) = \sum_k (r_k \cos (2 \pi f_k t + a_k), r_k \sin (2 \pi f_k t + a_k))$$
-
-\ 
-
-More succinct in complex polar form and with $X_k = r_k e^{i a_k}$:
-$$x(t) = \sum_k X_k \, e ^ {i 2 \pi f_k t} \mbox{\ \ (inverse Fourier transform)}$$
-
-Discretize with $f_k = k$ and $t = n/N$, $0 \le k, n < N$:
-
-$$x_n = \sum_{0 \le k < N} X_k \, e ^ {i 2 \pi k n/N}$$
+\pause
+\emph{Answers}: all periodic functions; the Fourier transform.
 
 }
 
+\framet{Other uses of the Fourier transform}{
+}
 
+
+\framet{Discrete Fourier Transform (DFT)}{
+
+$$X_k =  \sum_{0 \le n < N} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
+
+% Direct implementation does $O(n^2)$ work.
+
+\pause
+In Haskell:
+
+> dft :: ... => f C -> f C
+> dft xs = (<.> xs) <$> twiddles       -- dot product \& map
+
+> twiddles :: ... => g (f C)
+> twiddles = powers <$> powers (exp (- i * 2 * pi / size @(g :.: f)))
+
+> powers :: Num a => a -> f a
+> powers = fst . lscanAla Product . pure
+
+No arrays!
+
+}
 
 \nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}} #2}
 
@@ -134,6 +165,7 @@ $$x_n = \sum_{0 \le k < N} X_k \, e ^ {i 2 \pi k n/N}$$
 \begin{itemize}
 
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
+\pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{circle-multi}
 
 \end{itemize}
 }

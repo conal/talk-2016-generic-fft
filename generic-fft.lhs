@@ -237,56 +237,39 @@ $$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
 
 \definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
 
-\framet{Re-indexing DFT}{
-\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
-\begin{shaded*}
-When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give
-$$
-X_{N_2 k_1 + k_2} =
-      \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
-         x_{N_1 n_2 + n_1}
-         e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
-$$= 
-    \sum_{n_1=0}^{N_1-1} 
-      \left[ e^{-\frac{2\pi i}{N} n_1 k_2} \right]
-      \left( \sum_{n_2=0}^{N_2-1} x_{N_1 n_2 + n_1}  
-              e^{-\frac{2\pi i}{N_2} n_2 k_2 } \right)
-      e^{-\frac{2\pi i}{N_1} n_1 k_1}
-$$
-\end{shaded*}
-}
-
 \definecolor{wow}{rgb}{1,0,0}
 
 \framet{Re-indexing DFT}{
-\vphantom{}
+\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
+\begin{shaded*}
+{\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}
 $$
 X_{N_2 k_1 + k_2} =
       \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
          x_{N_1 n_2 + n_1}
          e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
-\vspace{-1ex}
+\vspace{1ex}
 $$= 
-    \underbrace{
       \sum_{n_1=0}^{N_1-1} 
         \left[ e^{-\frac{2\pi i}{N} n_1 k_2} \right]
-        \overbrace{
           \left( \sum_{n_2=0}^{N_2-1} x_{N_1 n_2 + n_1}  
                   e^{-\frac{2\pi i}{N_2} n_2 k_2 } \right)
-        }^{\text{\rule{0mm}{3.2ex}}}
         e^{-\frac{2\pi i}{N_1} n_1 k_1}
-    }_{\text{\rule{0mm}{3ex}\vphantom{outer FFTs}}}
 $$
+\vspace{2ex}
+\end{shaded*}
 }
 
-\framet{Re-indexing DFT}{
-Punch line:
+\framet{Re-indexing DFT --- \textcolor{wow}{punch line}}{
+\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
+\begin{shaded*}
+{\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}
 $$
 X_{N_2 k_1 + k_2} =
       \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
          x_{N_1 n_2 + n_1}
          e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
-\vspace{-1ex}
+\vspace{-2.4ex}
 $$= 
     \underbrace{
       \sum_{n_1=0}^{N_1-1} 
@@ -298,7 +281,11 @@ $$=
         e^{-\frac{2\pi i}{N_1} n_1 k_1}
     }_{\text{\textcolor{wow}{outer FFTs}}}
 $$
+\vspace{-1.2ex}
+\end{shaded*}
 }
+
+
 
 \framet{Factoring a DFT}{
 

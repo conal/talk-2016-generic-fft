@@ -116,7 +116,7 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 \framet{Questions}{
 
 \vspace{-4ex}
-\wfig{2in}{circle-multi}
+\wfig{2in}{multi-circle}
 \begin{center}
 \vspace{-5ex}
 \href{http://blog.ivank.net/fourier-transform-clarified.html}{\tiny (source)}
@@ -138,10 +138,13 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 \framet{Discrete Fourier Transform (DFT)}{
 
+\vspace{-2ex}
+
 $$X_k =  \sum_{0 \le n < N} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
 
 % Direct implementation does $O(n^2)$ work.
 
+\vspace{-2ex}
 \pause
 In Haskell:
 
@@ -151,10 +154,59 @@ In Haskell:
 > twiddles :: ... => g (f C)
 > twiddles = powers <$> powers (exp (- i * 2 * pi / size @(g :.: f)))
 
-> powers :: Num a => a -> f a
+> powers :: ... => a -> f a
 > powers = fst . lscanAla Product . pure
 
-No arrays!
+> (<.>) :: ... => f a -> f a -> a
+> u <.> v = sum (liftA2 (*) u v)
+
+%% No arrays!
+
+}
+
+%% {|(<.>) @ (RBin N2)|}
+
+\framet{|(<.>) :: RBin N3 R -> RBin N3 R -> R|}{
+\vspace{-7ex}
+\wfig{4.8in}{circuits/dot-r3-d}
+}
+
+\framet{|(<.>) :: RBin N2 C -> RBin N2 C -> C|}{
+\vspace{-2ex}
+\wfig{3.5in}{circuits/dot-r2-c}
+}
+
+\framet{|powers :: R -> RBin N4 R| --- unoptimized}{
+\vspace{-2ex}
+\wfig{3.8in}{circuits/powers-rt4-no-opt}
+}
+\framet{|powers :: R -> RBin N4 R| --- optimized}{
+\vspace{-2ex}
+\wfig{4.8in}{circuits/powers-rt4}
+}
+\framet{|powers :: C -> RBin N4 C|}{
+\vspace{-2.8ex}
+\wfig{3.8in}{circuits/powersp-rb4-c}
+}
+\framet{|powers :: C -> RBin N3 C|}{
+\vspace{-2.8ex}
+\wfig{4.25in}{circuits/powersp-rb3-c}
+}
+\framet{|powers :: C -> RBin N3 C|}{
+\vspace{-2.8ex}
+\wfig{4.25in}{circuits/powersp-rb3-c}
+}
+
+%% \framet{|twiddles :: RBin N2 (RBin N3 C)|}{
+%% \vspace{-2.8ex}
+%% \wfig{4.25in}{circuits/twiddles-rb2-rb3}
+%% }
+
+\framet{Shaped types}{
+
+Perfect binary tree of depth $n$:
+
+$$\overbrace{P \circ \cdots \circ P}^{n}$$
 
 }
 
@@ -165,7 +217,7 @@ No arrays!
 \begin{itemize}
 
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
-\pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{circle-multi}
+\pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{multi-circle}
 
 \end{itemize}
 }

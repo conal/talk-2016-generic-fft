@@ -6,6 +6,7 @@
 %\documentclass[handout]{beamer}
 
 \usefonttheme{serif}
+\usepackage{framed}
 
 \usepackage{hyperref}
 \usepackage{color}
@@ -107,7 +108,7 @@ $$ \sum_{(f,r,a) \in S} r \, e ^ {i (2 \pi f t + a)} $$
 Yet more succinct with $X_k = r_k e^{i a_k}$:
 $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
-% \mbox{\ \ (inverse Fourier transform)}
+% \mathrm{\ \ (inverse Fourier transform)}
 
 %% Discretize with $f_k = k$ and $t = n/N$, $0 \le k, n < N$: $$x_n = \sum_{0 \le k < N} X_k \, e ^ {i 2 \pi k n/N}$$
 
@@ -140,7 +141,7 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 \vspace{-2ex}
 
-$$X_k =  \sum_{0 \le n < N} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
+$$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
 
 % Direct implementation does $O(n^2)$ work.
 
@@ -220,6 +221,93 @@ In Haskell:
 \end{itemize}
 }
 
+\framet{A summation trick}{
+
+For composite bounds:
+$$
+\sum_{n = 0}^{N_1 N_2 -1}{F(n)} \:\; = \:\;
+\sum_{n_1 = 0}^{N_1-1}\, \sum_{n_2 = 0}^{N_2-1} F(N_1 n_2 + n_1)
+$$
+
+Apply to DFT:
+
+$$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
+
+}
+
+\definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
+
+\framet{Re-indexing DFT}{
+\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
+\begin{shaded*}
+When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give
+$$
+X_{N_2 k_1 + k_2} =
+      \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
+         x_{N_1 n_2 + n_1}
+         e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
+$$= 
+    \sum_{n_1=0}^{N_1-1} 
+      \left[ e^{-\frac{2\pi i}{N} n_1 k_2} \right]
+      \left( \sum_{n_2=0}^{N_2-1} x_{N_1 n_2 + n_1}  
+              e^{-\frac{2\pi i}{N_2} n_2 k_2 } \right)
+      e^{-\frac{2\pi i}{N_1} n_1 k_1}
+$$
+\end{shaded*}
+}
+
+\definecolor{wow}{rgb}{1,0,0}
+
+\framet{Re-indexing DFT}{
+\vphantom{}
+$$
+X_{N_2 k_1 + k_2} =
+      \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
+         x_{N_1 n_2 + n_1}
+         e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
+\vspace{-1ex}
+$$= 
+    \underbrace{
+      \sum_{n_1=0}^{N_1-1} 
+        \left[ e^{-\frac{2\pi i}{N} n_1 k_2} \right]
+        \overbrace{
+          \left( \sum_{n_2=0}^{N_2-1} x_{N_1 n_2 + n_1}  
+                  e^{-\frac{2\pi i}{N_2} n_2 k_2 } \right)
+        }^{\text{\rule{0mm}{3.2ex}}}
+        e^{-\frac{2\pi i}{N_1} n_1 k_1}
+    }_{\text{\rule{0mm}{3ex}\vphantom{outer FFTs}}}
+$$
+}
+
+\framet{Re-indexing DFT}{
+Punch line:
+$$
+X_{N_2 k_1 + k_2} =
+      \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
+         x_{N_1 n_2 + n_1}
+         e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
+\vspace{-1ex}
+$$= 
+    \underbrace{
+      \sum_{n_1=0}^{N_1-1} 
+        \left[ e^{-\frac{2\pi i}{N} n_1 k_2} \right]
+        \overbrace{
+          \left( \sum_{n_2=0}^{N_2-1} x_{N_1 n_2 + n_1}  
+                  e^{-\frac{2\pi i}{N_2} n_2 k_2 } \right)
+        }^{\text{\textcolor{wow}{inner FFTs}}}
+        e^{-\frac{2\pi i}{N_1} n_1 k_1}
+    }_{\text{\textcolor{wow}{outer FFTs}}}
+$$
+}
+
+\framet{Factoring a DFT}{
+
+\wfig{3.25in}{cooley-tukey-general}
+
+\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{(source)}
+
+}
+
 \framet{How FFT works}{
 \begin{itemize}
 \item A summation trick (composite size)
@@ -270,7 +358,7 @@ In Haskell:
 
 Perfect binary tree of depth $n$:
 
-$$\overbrace{P \circ \cdots \circ P}^{n}$$
+$$\overbrace{P \circ \cdots \circ P}^{n \mathrm{~times}}$$
 
 }
 
@@ -282,6 +370,7 @@ $$\overbrace{P \circ \cdots \circ P}^{n}$$
 
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
 \pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{multi-circle}
+% \pcredit{https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm\#/media/File:Cooley-tukey-general.png}{Steven G. Johnson}{cooley-tukey-general}
 
 \end{itemize}
 }

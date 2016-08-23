@@ -141,23 +141,27 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 
 \framet{Discrete Fourier Transform (DFT)}{
+\vspace{1in}
+$$
+X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}
+\qquad k = 0,\ldots,N-1
+$$
 
-\vspace{-1ex}
-\begin{flushright}
-{
-$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{-i2\pi kn/N}$
+\vspace{0.75in}
+Direct implementation does $O(n^2)$ work.
+\vspace{0.5in}
 }
-\qquad \qquad \qquad \qquad 
+
+\framet{DFT in Haskell}{
+\begin{flushright}
+\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
+\qquad \qquad
 \end{flushright}
-
-%% Direct implementation does $O(n^2)$ work.
-
-\vspace{-3ex}
+\vspace{-9ex}
 \pause
-In Haskell:
 
 > dft :: ... => f C -> f C
-> dft xs = (<.> xs) <$> twiddles       -- dot product \& map
+> dft xs = (<.> xs) <$> twiddles
 
 > twiddles :: ... => g (f C)
 > twiddles = powers <$> powers (exp (- i * 2 * pi / size @(g :.: f)))
@@ -216,10 +220,18 @@ In Haskell:
 %endif
 
 \framet{Fast Fourier transform (FFT)}{
-\begin{itemize}\itemsep3ex
-\item DFT in $O(n \log n)$
+
+\vspace{-5.5ex}
+\begin{flushright}
+\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
+\qquad \qquad
+\end{flushright}
+\vspace{-3ex}
+
+\begin{itemize}\itemsep4ex
+\item DFT in $O(n \log n)$ work
 \item Better numeric properties than naive DFT
-\item Some FFT history:
+\item Long history:
   \begin{itemize}
   \item Gauss: 1805
   \item Danielson \& Lanczos: 1942
@@ -230,15 +242,23 @@ In Haskell:
 
 \framet{A summation trick}{
 
+\vspace{-7.8ex}
+\begin{flushright}
+\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
+\qquad \qquad
+\end{flushright}
+
+\vspace{3ex}
 For composite bounds:
+\vspace{4ex}
+
 $$
 \sum_{n = 0}^{N_1 N_2 -1}{F(n)} \:\; = \:\;
 \sum_{n_1 = 0}^{N_1-1}\, \sum_{n_2 = 0}^{N_2-1} F(N_1 n_2 + n_1)
 $$
 
-Apply to DFT:
-
-$$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
+%% Apply to DFT:
+%% $$X_k =  \sum_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}} \qquad 0 \le k < N$$
 
 }
 

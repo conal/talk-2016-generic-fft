@@ -33,6 +33,8 @@
 % Suppress navigation arrows
 \setbeamertemplate{navigation symbols}{}
 
+\newcommand\sourced[1]{\href{#1}{\tiny (source)}}
+
 \input{macros}
 
 %include polycode.fmt
@@ -59,6 +61,8 @@
 
 \graphicspath{{Figures/}}
 
+\definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
+
 \begin{document}
 
 %% \partframe{\href{https://www.youtube.com/watch?v=k8FXF1KjzY0&list=PL6c1MWlBF2oY2vSJcylt6QkO2Gxz7RjsL}{Prelude}}
@@ -73,7 +77,7 @@
 \wfig{3in}{Farris/figs-1-2}
 \begin{center}
 \vspace{-7ex}
-\href{https://works.bepress.com/frank_farris/14/}{\tiny (source)}
+\sourced{https://works.bepress.com/frank_farris/14/}
 \end{center}
 \vspace{-3ex}
 
@@ -116,13 +120,12 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 \framet{Questions}{
 
-\vspace{-4ex}
 \wfig{2in}{multi-circle}
 \begin{center}
 \vspace{-5ex}
-\href{http://blog.ivank.net/fourier-transform-clarified.html}{\tiny (source)}
+\sourced{http://blog.ivank.net/fourier-transform-clarified.html}
 \end{center}
-
+\vspace{-2ex}
 \begin{itemize}\itemsep 2ex
 \item Which motions can be generated in this way?
 \item How to generate the circular components for a given motion?
@@ -139,13 +142,17 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 \framet{Discrete Fourier Transform (DFT)}{
 
-\vspace{-2ex}
+\vspace{-1ex}
+\begin{flushright}
+{
+$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{-i2\pi kn/N}$
+}
+\qquad \qquad \qquad \qquad 
+\end{flushright}
 
-$$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
+%% Direct implementation does $O(n^2)$ work.
 
-% Direct implementation does $O(n^2)$ work.
-
-\vspace{-2ex}
+\vspace{-3ex}
 \pause
 In Haskell:
 
@@ -235,11 +242,9 @@ $$X_k =  \sum_{n=0}^{N-1} x_n e^{-i2\pi kn/N} \qquad 0 \le k < N$$
 
 }
 
-\definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
-
 \definecolor{wow}{rgb}{1,0,0}
 
-\framet{Re-indexing DFT}{
+\framet{Factoring DFT --- math}{
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
 {\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}
@@ -260,7 +265,7 @@ $$
 \end{shaded*}
 }
 
-\framet{Re-indexing DFT --- \textcolor{wow}{punch line}}{
+\framet{Factoring DFT --- math}{
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
 {\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}
@@ -285,15 +290,18 @@ $$
 \end{shaded*}
 }
 
-
-
-\framet{Factoring a DFT}{
-
+\framet{Factoring a DFT --- pictures}{
+\vspace{3ex}
 \wfig{3.25in}{cooley-tukey-general}
-
-\href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{(source)}
-
+\begin{center}
+\vspace{-3ex}
+\sourced{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}
+\end{center}
 }
+
+\framet{Factoring a DFT --- Haskell}{
+}
+
 
 \framet{How FFT works}{
 \begin{itemize}

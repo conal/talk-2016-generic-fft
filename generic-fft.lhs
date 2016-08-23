@@ -153,12 +153,12 @@ Direct implementation does $O(n^2)$ work.
 }
 
 \framet{DFT in Haskell}{
+
+\vspace{-7ex}
 \begin{flushright}
 \colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\qquad \qquad
 \end{flushright}
-\vspace{-9ex}
-\pause
+\vspace{-3ex}
 
 > dft :: ... => f C -> f C
 > dft xs = (<.> xs) <$> twiddles
@@ -221,12 +221,12 @@ Direct implementation does $O(n^2)$ work.
 
 \framet{Fast Fourier transform (FFT)}{
 
-\vspace{-5.5ex}
+\vspace{-12.4ex}
 \begin{flushright}
 \colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\qquad \qquad
 \end{flushright}
-\vspace{-3ex}
+
+\vspace{4ex}
 
 \begin{itemize}\itemsep4ex
 \item DFT in $O(n \log n)$ work
@@ -242,13 +242,12 @@ Direct implementation does $O(n^2)$ work.
 
 \framet{A summation trick}{
 
-\vspace{-7.8ex}
+\vspace{-17.4ex}
 \begin{flushright}
 \colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\qquad \qquad
 \end{flushright}
 
-\vspace{3ex}
+\vspace{6ex}
 For composite bounds:
 \vspace{4ex}
 
@@ -266,7 +265,7 @@ $$
 
 \framet{Factoring DFT --- math}{
 
-\vspace{-6ex}
+\vspace{-6.2ex}
 \begin{flushright}
 \colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
 \end{flushright}
@@ -294,7 +293,7 @@ $$
 
 \framet{Factoring DFT --- math}{
 
-\vspace{-6ex}
+\vspace{-6.1ex}
 \begin{flushright}
 \colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
 \end{flushright}
@@ -309,7 +308,7 @@ X_{N_2 k_1 + k_2} =
       \sum_{n_1=0}^{N_1-1} \sum_{n_2=0}^{N_2-1}
          x_{N_1 n_2 + n_1}
          e^{-\frac{2\pi i}{N_1 N_2} \cdot (N_1 n_2 + n_1) \cdot (N_2 k_1 + k_2)} $$
-\vspace{-2.4ex}
+\vspace{-2.45ex}
 $$= 
     \underbrace{
       \sum_{n_1=0}^{N_1-1} 
@@ -325,27 +324,63 @@ $$
 \end{shaded*}
 }
 
-\framet{Factoring a DFT --- pictures}{
-\vspace{3ex}
+\framet{Factoring a DFT --- in pictures}{
+
 \wfig{3.25in}{cooley-tukey-general}
 \begin{center}
-\vspace{-3ex}
+\vspace{-5ex}
 \sourced{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}
 \end{center}
+
+\vspace{-2ex}
+\pause
+How might we implement in Haskell?
 }
 
-\framet{Factoring a DFT --- Haskell}{
+%% {Factoring a DFT --- in Haskell}
+\framet{Factor functors, not numbers}{
+
+\setlength{\fboxsep}{1pt}
+\vspace{-7ex}
+\begin{flushright}
+\fbox{\wpicture{2in}{cooley-tukey-general}}
+\end{flushright}
+\vspace{-17ex}
+
+> class FFT f where
+>   type FFO f :: * -> *
+>   fft :: f C -> FFO f C
+
+> ffts' :: ... => g (f C) -> FFO g (f C)
+> ffts' = inTranspose (fmap fft)
+
+> twiddle :: ... => g (f C) -> g (f C)
+> twiddle = (liftA2.liftA2) (*) twiddles
+
+> instance SPACE ... => FFT (g :.: f) where
+>   type FFO (g :.: f) = FFO f :.: FFO g
+>   fft = inComp (ffts' . transpose . twiddle . ffts')
+
 }
 
+\framet{Some details}{
 
-\framet{How FFT works}{
-\begin{itemize}
-\item A summation trick (composite size)
-\item Lift the formulation from \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{General factorizations} on the Cooley-Tukey FFT Wikipedia page.
-\item Picture from same source
-\item Imagine how to implement in Haskell
-\end{itemize}
+> transpose :: (Traversable t, Applicative f) => t (f a) -> f (t a)
+> transpose = sequenceA
+
+> (<--) :: (b -> b') -> (a' -> a) -> ((a -> b) -> (a' -> b'))
+> (h <-- f) g = h . g . f
+
+> inTranspose :: ... => (f (g a) -> f' (g' a)) -> g (f a) -> g' (f' a)
+> inTranspose = transpose <-- transpose
+
+> inComp :: (g (f a) -> g' (f' a')) -> ((g :.: f) a -> (g' :.: f') a')
+> inComp = Comp1 <-- unComp1
+
 }
+
+%%%%% WORKING HERE
+
 
 \framet{Generic FFT in Haskell}{
 \begin{itemize}
@@ -357,7 +392,6 @@ $$
 \item Optimize transpositions
 \item Generic formulation: |Traversable|, functor composition.
 \end{itemize}
-
 }
 
 \framet{Some type instances with figures}{

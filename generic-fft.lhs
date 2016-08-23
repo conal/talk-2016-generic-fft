@@ -335,30 +335,44 @@ $$
 How might we implement in Haskell?
 }
 
-\framet{Factor functors, not numbers}{
+%if True
+\framet{Composing functors}{
 
 \setlength{\fboxsep}{1pt}
-\vspace{-7ex}
+\vspace{-10.1ex}
 \begin{flushright}
 \fbox{\wpicture{2in}{cooley-tukey-general}}
 \end{flushright}
-\vspace{-17ex}
 
-> class FFT f where
->   type FFO f :: * -> *
->   fft :: f C -> FFO f C
+\vspace{-14ex}
 
-> ffts' :: ... => g (f C) -> FFO g (f C)
-> ffts' = inTranspose (fmap fft)
+\setlength\mathindent{2ex}
 
-> twiddle :: ... => g (f C) -> g (f C)
-> twiddle = (liftA2.liftA2) (*) twiddles
+> newtype (g :.: f) a = Comp1 (g (f a))
 
-> instance SPACE ... => FFT (g :.: f) where
->   type FFO (g :.: f) = FFO f :.: FFO g
->   fft = inComp (ffts' . transpose . twiddle . ffts')
+~
 
+Closed under composition:
+% |Functor|, |Applicative|, |Foldable|, |Traversable|, |Sized|.
+
+\vspace{-1.5ex}
+\begin{itemize}\itemsep-0.3ex
+\item |Functor|
+\item |Applicative|
+\item |Foldable|
+\item |Traversable|
+\item |Sized|
+\end{itemize}
+
+%% > instance (Sized g, Sized f) => Sized (g :.: f) where
+%% >   size = size @g * size @f
+
+\vspace{1ex}
+
+Exercise: work out the instances.
 }
+
+%else
 
 \framet{Composing functors}{
 
@@ -381,29 +395,47 @@ Also closed under composition:
 \end{itemize}
 
 Exercise: work out the instances.
-
 }
+%endif
 
-\framet{Some FFT details}{
+\framet{Factor functors, not numbers}{
 
-> (<--) :: (c -> d) -> (a -> b) -> ((b -> c) -> (a -> d))
-> (h <-- f) g = h . g . f
+\setlength{\fboxsep}{1pt}
+\vspace{-7ex}
+\begin{flushright}
+\fbox{\wpicture{2in}{cooley-tukey-general}}
+\end{flushright}
+\vspace{-17ex}
 
-> inComp :: (g (f a) -> g' (f' a')) -> ((g :.: f) a -> (g' :.: f') a')
-> inComp = Comp1 <-- unComp1
+> class FFT f where
+>   type FFO f :: * -> *
+>   fft :: f C -> FFO f C
 
-> transpose :: (Traversable t, Applicative f) => t (f a) -> f (t a)
-> transpose = sequenceA
+> ffts' :: ... => g (f C) -> FFO g (f C)
+> ffts' = transpose . fmap fft . transpose
 
-> inTranspose :: ... => (f (g a) -> f' (g' a)) -> g (f a) -> g' (f' a)
-> inTranspose = transpose <-- transpose
+> twiddle :: ... => g (f C) -> g (f C)
+> twiddle = (liftA2.liftA2) (*) twiddles
+
+> instance SPACE ... => FFT (g :.: f) where
+>   type FFO (g :.: f) = FFO f :.: FFO g
+>   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
 
 }
 
 \framet{Optimizing}{
-\begin{center}
-Optimize |fft| for |g :.: f|.
-\end{center}
+%% \begin{center}
+%% Optimize |fft| for |g :.: f|.
+%% \end{center}
+
+>     ffts' . transpose . twiddle . ffts'
+> ==     transpose . fmap fft . transpose
+>     .  transpose
+>     .  twiddle
+>     .  transpose . fmap fft . transpose
+> ==  transpose . fmap fft . twiddle . transpose . fmap fft . transpose
+> ==  traverse fft . twiddle . traverse fft . transpose
+
 }
 
 \framet{Binary FFT}{

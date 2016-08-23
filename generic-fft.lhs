@@ -265,6 +265,13 @@ $$
 \definecolor{wow}{rgb}{1,0,0}
 
 \framet{Factoring DFT --- math}{
+
+\vspace{-6ex}
+\begin{flushright}
+\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
+\end{flushright}
+\vspace{-3ex}
+
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
 {\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}
@@ -286,6 +293,14 @@ $$
 }
 
 \framet{Factoring DFT --- math}{
+
+\vspace{-6ex}
+\begin{flushright}
+\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
+\end{flushright}
+
+\vspace{-2.8ex}
+
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
 {\small When this re-indexing is substituted into the DFT formula for $nk$, the $N_1 n_2 N_2 k_1$ cross term vanishes (its exponential is unity), and the remaining terms give}

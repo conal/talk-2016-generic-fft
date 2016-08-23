@@ -45,3 +45,18 @@
 %format Vec (n) = VecTy"_{"n"}"
 %format RBin (n) = RBinTy"_{"n"}"
 %format LBin (n) = LBinTy"_{"n"}"
+
+%format <-- = "\leftarrowtriangle"
+
+%% %format Comp1 = "\Varid{Comp}_1"
+%% %format unComp1 = "\Varid{unComp}_1"
+
+%format Comp1 = "\Varid{O}"
+%format unComp1 = "\Varid{unO}"
+%format inComp = "\Varid{inO}"
+
+%format :# = "\mathbin{:\!\!\#}"
+
+%format Pair = "\Pair"
+
+%format Par1 = "\Varid{Id}"

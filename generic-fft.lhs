@@ -176,8 +176,6 @@ Direct implementation does $O(n^2)$ work.
 
 }
 
-%% {|(<.>) @ (RBin N2)|}
-
 %if False
 
 \framet{|(<.>) :: RBin N3 R -> RBin N3 R -> R|}{
@@ -365,44 +363,82 @@ How might we implement in Haskell?
 
 \framet{Some details}{
 
-> transpose :: (Traversable t, Applicative f) => t (f a) -> f (t a)
-> transpose = sequenceA
-
-> (<--) :: (b -> b') -> (a' -> a) -> ((a -> b) -> (a' -> b'))
+> (<--) :: (c -> d) -> (a -> b) -> ((b -> c) -> (a -> d))
 > (h <-- f) g = h . g . f
 
-> inTranspose :: ... => (f (g a) -> f' (g' a)) -> g (f a) -> g' (f' a)
-> inTranspose = transpose <-- transpose
+> newtype (g :.: f) a = Comp1 { unComp1 :: g (f a) }
 
 > inComp :: (g (f a) -> g' (f' a')) -> ((g :.: f) a -> (g' :.: f') a')
 > inComp = Comp1 <-- unComp1
 
+> transpose :: (Traversable t, Applicative f) => t (f a) -> f (t a)
+> transpose = sequenceA
+
+> inTranspose :: ... => (f (g a) -> f' (g' a)) -> g (f a) -> g' (f' a)
+> inTranspose = transpose <-- transpose
+
 }
 
-%%%%% WORKING HERE
-
-
-\framet{Generic FFT in Haskell}{
-\begin{itemize}
-\item Follow the WP picture:
-  \begin{itemize}
-  \item Note reshaping (functor change)
-  \item Direct translation to Haskell
-  \end{itemize}
-\item Optimize transpositions
-\item Generic formulation: |Traversable|, functor composition.
-\end{itemize}
+\framet{Optimizing}{
+\begin{center}
+Optimize |fft| for |g :.: f|.
+\end{center}
 }
 
-\framet{Some type instances with figures}{
-\begin{itemize}
-\item Where to introduce functor exponentiation?
-\item Top-down trees: binary \& other
-\item Bottom-up trees: binary \& other
-\item Vectors?
-\item Other?
-\end{itemize}
+\framet{Binary FFT}{
+
+Uniform pairs:
+
+> data Pair a = a :# a deriving (Functor,Foldable,Traversable)
+
+> instance Sized Pair where size = 2
+>
+> instance FFT Pair where
+>   type FFO Pair = Pair
+>   fft = dft
+
+Equivalently,
+
+> SPACE fft (a :# b) = (a + b) :# (a - b)
+
 }
+
+\framet{Exponentiating functors}{
+
+Binary tree of depth $n$:
+
+$$\overbrace{\Pair \circ \cdots \circ \Pair}^{n \text{~times}}$$
+
+\pause
+
+Right-associated functor exponentiation
+
+> type family RPow h n where
+>   RPow h Z     = Par1
+>   RPow h (S n) = h :.: RPow h n
+
+Left-associated functor exponentiation
+
+> type family LPow h n where
+>   LPow h Z     = Par1
+>   LPow h (S n) = LPow h n :.: h
+
+
+}
+
+\framet{Top-down trees --- decimation in time}{}
+\framet{Bottom-up trees --- decimation in frequency}{}
+\framet{Generic FFT}{}
+
+
+\framet{Shaped types}{
+
+Perfect binary tree of depth $n$:
+
+$$\overbrace{P \circ \cdots \circ P}^{n \text{~times}}$$
+
+}
+
 
 \framet{Concluding remarks}{
 \begin{itemize}
@@ -416,14 +452,6 @@ How might we implement in Haskell?
   \item Out-of-bounds errors
   \end{itemize}
 \end{itemize}
-}
-
-\framet{Shaped types}{
-
-Perfect binary tree of depth $n$:
-
-$$\overbrace{P \circ \cdots \circ P}^{n \mathrm{~times}}$$
-
 }
 
 \nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}} #2}

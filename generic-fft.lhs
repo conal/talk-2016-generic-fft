@@ -322,7 +322,7 @@ $$
 \end{shaded*}
 }
 
-\framet{Factoring a DFT --- in pictures}{
+\framet{Factoring DFT --- pictures}{
 
 \wfig{3.25in}{cooley-tukey-general}
 \begin{center}
@@ -335,53 +335,26 @@ $$
 How might we implement in Haskell?
 }
 
-%if True
 \framet{Composing functors}{
 
 \setlength{\fboxsep}{1pt}
-\vspace{-10.1ex}
+\vspace{-8.2ex}
 \begin{flushright}
 \fbox{\wpicture{2in}{cooley-tukey-general}}
 \end{flushright}
 
-\vspace{-14ex}
+\vspace{-12ex}
 
-\setlength\mathindent{2ex}
+\setlength\mathindent{4ex}
 
 > newtype (g :.: f) a = Comp1 (g (f a))
 
-~
-
-Closed under composition:
-% |Functor|, |Applicative|, |Foldable|, |Traversable|, |Sized|.
-
-\vspace{-1.5ex}
-\begin{itemize}\itemsep-0.3ex
-\item |Functor|
-\item |Applicative|
-\item |Foldable|
-\item |Traversable|
-\item |Sized|
-\end{itemize}
-
-%% > instance (Sized g, Sized f) => Sized (g :.: f) where
-%% >   size = size @g * size @f
-
-\vspace{1ex}
-
-Exercise: work out the instances.
-}
-
-%else
-
-\framet{Composing functors}{
-
-> newtype (g :.: f) a = Comp1 { unComp1 :: g (f a) }
-
-\vspace{-5ex}
+\pause
+\vspace{-2ex}
 
 > instance (Sized g, Sized f) => Sized (g :.: f) where
 >   size = size @g * size @f
+
 
 Also closed under composition:
 % |Functor|, |Applicative|, |Foldable|, |Traversable|.
@@ -394,9 +367,10 @@ Also closed under composition:
 \item |Traversable|
 \end{itemize}
 
-Exercise: work out the instances.
+%% \vspace{1ex}
+%% Exercise: work out the instances.
+
 }
-%endif
 
 \framet{Factor functors, not numbers}{
 

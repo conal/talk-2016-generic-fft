@@ -335,7 +335,6 @@ $$
 How might we implement in Haskell?
 }
 
-%% {Factoring a DFT --- in Haskell}
 \framet{Factor functors, not numbers}{
 
 \setlength{\fboxsep}{1pt}
@@ -361,12 +360,34 @@ How might we implement in Haskell?
 
 }
 
-\framet{Some details}{
+\framet{Composing functors}{
+
+> newtype (g :.: f) a = Comp1 { unComp1 :: g (f a) }
+
+\vspace{-5ex}
+
+> instance (Sized g, Sized f) => Sized (g :.: f) where
+>   size = size @g * size @f
+
+Also closed under composition:
+% |Functor|, |Applicative|, |Foldable|, |Traversable|.
+
+\vspace{-1.5ex}
+\begin{itemize}\itemsep-0.3ex
+\item |Functor|
+\item |Applicative|
+\item |Foldable|
+\item |Traversable|
+\end{itemize}
+
+Exercise: work out the instances.
+
+}
+
+\framet{Some FFT details}{
 
 > (<--) :: (c -> d) -> (a -> b) -> ((b -> c) -> (a -> d))
 > (h <-- f) g = h . g . f
-
-> newtype (g :.: f) a = Comp1 { unComp1 :: g (f a) }
 
 > inComp :: (g (f a) -> g' (f' a')) -> ((g :.: f) a -> (g' :.: f') a')
 > inComp = Comp1 <-- unComp1
@@ -403,25 +424,40 @@ Equivalently,
 
 }
 
+\framet{Associating functor composition}{
+
+Consider |(h :.: g) :.: f| vs |h :.: (g :.: f)|.
+
+Functor composition is associative, \emph{modulo isomorphism}.
+
+
+
+}
+
 \framet{Exponentiating functors}{
 
-Binary tree of depth $n$:
+$$f^n = \overbrace{f \circ \cdots \circ f}^{n \text{~times}}$$
 
-$$\overbrace{\Pair \circ \cdots \circ \Pair}^{n \text{~times}}$$
+Example: $\Pair ^ n$ is a depth-$n$ perfect, binary, leaf tree.
 
+\pause
+
+}
+
+\framet{Associating functor composition}{
 \pause
 
 Right-associated functor exponentiation
 
 > type family RPow h n where
->   RPow h Z     = Par1
->   RPow h (S n) = h :.: RPow h n
+>   RPow h Z      = Par1
+>   RPow h (S n)  = h :.: RPow h n
 
 Left-associated functor exponentiation
 
 > type family LPow h n where
->   LPow h Z     = Par1
->   LPow h (S n) = LPow h n :.: h
+>   LPow h Z      = Par1
+>   LPow h (S n)  = LPow h n :.: h
 
 
 }

@@ -335,7 +335,7 @@ $$
 How might we implement in Haskell?
 }
 
-\framet{Composing functors}{
+\framet{Factoring DFT --- Haskell}{
 
 \setlength{\fboxsep}{1pt}
 \vspace{-8.2ex}
@@ -343,18 +343,23 @@ How might we implement in Haskell?
 \fbox{\wpicture{2in}{cooley-tukey-general}}
 \end{flushright}
 
-\vspace{-12ex}
+\vspace{-16ex}
+
+Factor functors, not numbers!
+
+\vspace{1ex}
 
 \setlength\mathindent{4ex}
 
 > newtype (g :.: f) a = Comp1 (g (f a))
 
 \pause
-\vspace{-2ex}
+\vspace{-4ex}
 
 > instance (Sized g, Sized f) => Sized (g :.: f) where
 >   size = size @g * size @f
 
+\vspace{-3ex}
 
 Also closed under composition:
 % |Functor|, |Applicative|, |Foldable|, |Traversable|.
@@ -372,7 +377,7 @@ Also closed under composition:
 
 }
 
-\framet{Factor functors, not numbers}{
+\framet{Factoring DFT --- Haskell}{
 
 \setlength{\fboxsep}{1pt}
 \vspace{-7ex}

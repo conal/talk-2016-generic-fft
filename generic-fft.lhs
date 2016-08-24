@@ -75,6 +75,8 @@
 
 %% \partframe{\href{http://i.imgur.com/BuO2INb.gif}{Paths from circles}}
 
+\framet{Epicycles}{\wfig{3in}{epicycles}}
+
 \framet{Paths from circular motion}{
 
 \vspace{-1.8ex}
@@ -104,16 +106,14 @@
 
 %% \vspace{-3ex}
 
-%% $$x(t) = \sum_k (r_k \cos (2 \pi f_k t + a_k), r_k \sin (2 \pi f_k t + a_k))$$
-
-$$\sum_{(f,r,a) \in S} (r \cos (2 \pi f t + a), r \sin (2 \pi f t + a))$$
+$$x(t) = \sum_{(f,r,a) \in S} (r \cos (2 \pi f t + a), r \sin (2 \pi f t + a))$$
 
 \ 
 
 More succinct in complex polar form:
-$$ \sum_{(f,r,a) \in S} r \, e ^ {i (2 \pi f t + a)} $$
+$$ x(t) = \sum_{(f,r,a) \in S} r \, e ^ {i (2 \pi f t + a)} $$
 
-Yet more succinct with $X_k = r_k e^{i a_k}$:
+Yet more succinct with $X = r e^{i a}$:
 $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 % \mathrm{\ \ (inverse Fourier transform)}
@@ -140,7 +140,18 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 }
 
-\framet{Other uses of the Fourier transform}{
+\framet{Some other uses of the Fourier transform}{
+
+\begin{itemize}\itemsep2ex
+\item Hearing
+\item Sound \& image compression
+\item Audio equalization
+\item Solving differential equations
+\item Convolution, for signal processing, probability, neural networks
+\item Derivatives of signals
+\end{itemize}
+
+
 }
 
 
@@ -166,8 +177,8 @@ Direct implementation does $O(n^2)$ work.
 %% \setlength{\fboxsep}{0pt}
 
 \newcommand{\upperDFT}{
-\begin{textblock}{100}[1,0](352,13)
-{\colorbox{shadecolor}{$X_k = \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}}
+\begin{textblock}{100}[1,0](348,13)
+{\colorbox{shadecolor}{{\large $X_k = \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}}}
 \end{textblock}
 }
 
@@ -380,6 +391,8 @@ Also closed under composition:
 >   type FFO f :: * -> *
 >   fft :: f C -> FFO f C
 
+\pause\vspace{-2ex}
+
 > instance NOP ... => FFT (g :.: f) where
 >   type FFO (g :.: f) = FFO f :.: FFO g
 >   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
@@ -510,10 +523,10 @@ Pleasant alternative to array algorithms:
 
 \begin{itemize}\itemsep3ex
 
+\pcredit{https://en.wikipedia.org/wiki/Deferent_and_epicycle}{Giovanni Cassini, Roger Long, James Ferguson}{epicycles}
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
 \pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{multi-circle}
 \pcredit{https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm}{Steven G. Johnson}{cooley-tukey-general}
-
 
 \end{itemize}
 }

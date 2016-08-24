@@ -26,6 +26,8 @@
 \usepackage{enumerate}
 \usepackage{tikzsymbols}
 
+\usepackage[absolute,overlay]{textpos}  % ,showboxes
+
 \useinnertheme[shadow]{rounded}
 % \useoutertheme{default}
 \useoutertheme{shadow}
@@ -52,6 +54,8 @@
 \setlength{\parskip}{1ex}
 
 % \setlength{\blanklineskip}{1.5ex}
+
+\setlength\mathindent{4ex}
 
 %%%%
 
@@ -141,24 +145,34 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
 
 \framet{Discrete Fourier Transform (DFT)}{
-\vspace{1in}
+\vspace{0.5in}
+
+{\Large
 $$
 X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}
-\qquad k = 0,\ldots,N-1
+{ \qquad k = 0,\ldots,N-1}
 $$
+}
 
-\vspace{0.75in}
+%\vspace{0.75in}
+~
+
 Direct implementation does $O(n^2)$ work.
 \vspace{0.5in}
 }
 
-\framet{DFT in Haskell}{
+\TPGrid{364}{273} %% roughly page size in points
 
-\vspace{-7ex}
-\begin{flushright}
-\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\end{flushright}
-\vspace{-3ex}
+%% \setlength{\fboxsep}{0pt}
+
+\newcommand{\upperDFT}{
+\begin{textblock}{100}[1,0](352,13)
+{\colorbox{shadecolor}{$X_k = \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}}
+\end{textblock}
+}
+
+
+\framet{DFT in Haskell}{\upperDFT 
 
 > dft :: ... => f C -> f C
 > dft xs = (<.> xs) <$> twiddles
@@ -217,14 +231,7 @@ Direct implementation does $O(n^2)$ work.
 
 %endif
 
-\framet{Fast Fourier transform (FFT)}{
-
-\vspace{-12.4ex}
-\begin{flushright}
-\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\end{flushright}
-
-\vspace{4ex}
+\framet{Fast Fourier transform (FFT)}{\upperDFT
 
 \begin{itemize}\itemsep4ex
 \item DFT in $O(n \log n)$ work
@@ -238,19 +245,13 @@ Direct implementation does $O(n^2)$ work.
 \end{itemize}
 }
 
-\framet{A summation trick}{
+\framet{A summation trick}{\upperDFT
 
-\vspace{-17.4ex}
-\begin{flushright}
-\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\end{flushright}
-
-\vspace{6ex}
 For composite bounds:
 \vspace{4ex}
 
 $$
-\sum_{n = 0}^{N_1 N_2 -1}{F(n)} \:\; = \:\;
+\sum_{n = 0}^{N_1 N_2 -1}{F(n)} \; = \;
 \sum_{n_1 = 0}^{N_1-1}\, \sum_{n_2 = 0}^{N_2-1} F(N_1 n_2 + n_1)
 $$
 
@@ -261,13 +262,9 @@ $$
 
 \definecolor{wow}{rgb}{1,0,0}
 
-\framet{Factoring DFT --- math}{
+\framet{Factoring DFT --- math}{\upperDFT
 
-\vspace{-6.2ex}
-\begin{flushright}
-\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\end{flushright}
-\vspace{-3ex}
+\vspace{2ex}
 
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
@@ -289,14 +286,9 @@ $$
 \end{shaded*}
 }
 
-\framet{Factoring DFT --- math}{
+\framet{Factoring DFT --- math}{\upperDFT
 
-\vspace{-6.1ex}
-\begin{flushright}
-\colorbox{shadecolor}{$X_k =  \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}
-\end{flushright}
-
-\vspace{-2.8ex}
+\vspace{2ex}
 
 \href{https://en.wikipedia.org/wiki/Cooley\%E2\%80\%93Tukey_FFT_algorithm\#General_factorizations}{From Wikipedia}:
 \begin{shaded*}
@@ -318,7 +310,7 @@ $$=
         e^{-\frac{2\pi i}{N_1} n_1 k_1}
     }_{\text{\textcolor{wow}{outer FFTs}}}
 $$
-\vspace{-1.2ex}
+\vspace{-1.25ex}
 \end{shaded*}
 }
 
@@ -335,21 +327,24 @@ $$
 How might we implement in Haskell?
 }
 
-\framet{Factoring DFT --- Haskell}{
+\setlength{\fboxsep}{1.5pt}
 
-\setlength{\fboxsep}{1pt}
-\vspace{-8.2ex}
-\begin{flushright}
-\fbox{\wpicture{2in}{cooley-tukey-general}}
-\end{flushright}
+%% \definecolor{white}{rgb}{1,1,1}
 
-\vspace{-16ex}
+\newcommand{\upperCT}{
+\begin{textblock}{149}[1,0](353,12)
+\colorbox{white}{\fbox{\wpicture{2in}{cooley-tukey-general}}}
+\end{textblock}
+}
 
-Factor functors, not numbers!
+\framet{Factoring DFT --- Haskell}{\upperCT
 
-\vspace{1ex}
+\vspace{4ex}
+\pause
 
-\setlength\mathindent{4ex}
+Factor types, not numbers!
+
+%% \vspace{1ex}
 
 > newtype (g :.: f) a = Comp1 (g (f a))
 
@@ -377,28 +372,23 @@ Also closed under composition:
 
 }
 
-\framet{Factoring DFT --- Haskell}{
+\framet{Factoring DFT --- Haskell}{\upperCT
 
-\setlength{\fboxsep}{1pt}
-\vspace{-7ex}
-\begin{flushright}
-\fbox{\wpicture{2in}{cooley-tukey-general}}
-\end{flushright}
-\vspace{-17ex}
+\vspace{2ex}
 
 > class FFT f where
 >   type FFO f :: * -> *
 >   fft :: f C -> FFO f C
+
+> instance NOP ... => FFT (g :.: f) where
+>   type FFO (g :.: f) = FFO f :.: FFO g
+>   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
 
 > ffts' :: ... => g (f C) -> FFO g (f C)
 > ffts' = transpose . fmap fft . transpose
 
 > twiddle :: ... => g (f C) -> g (f C)
 > twiddle = (liftA2.liftA2) (*) twiddles
-
-> instance SPACE ... => FFT (g :.: f) where
->   type FFO (g :.: f) = FFO f :.: FFO g
->   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
 
 }
 
@@ -408,12 +398,15 @@ Also closed under composition:
 %% \end{center}
 
 >     ffts' . transpose . twiddle . ffts'
-> ==     transpose . fmap fft . transpose
+> ==     
+>        transpose . fmap fft . transpose
 >     .  transpose
 >     .  twiddle
 >     .  transpose . fmap fft . transpose
-> ==  transpose . fmap fft . twiddle . transpose . fmap fft . transpose
-> ==  traverse fft . twiddle . traverse fft . transpose
+> ==  
+>     transpose . fmap fft . twiddle . transpose . fmap fft . transpose
+> ==  
+>     traverse fft . twiddle . traverse fft . transpose
 
 }
 
@@ -423,7 +416,8 @@ Uniform pairs:
 
 > data Pair a = a :# a deriving (Functor,Foldable,Traversable)
 
-> instance Sized Pair where size = 2
+> instance Sized Pair where
+>   size = 2
 >
 > instance FFT Pair where
 >   type FFO Pair = Pair
@@ -435,73 +429,82 @@ Equivalently,
 
 }
 
-\framet{Associating functor composition}{
-
-Consider |(h :.: g) :.: f| vs |h :.: (g :.: f)|.
-
-Functor composition is associative, \emph{modulo isomorphism}.
-
-
-
-}
-
 \framet{Exponentiating functors}{
+
+\vspace{6ex}
 
 $$f^n = \overbrace{f \circ \cdots \circ f}^{n \text{~times}}$$
 
-Example: $\Pair ^ n$ is a depth-$n$ perfect, binary, leaf tree.
+\vspace{6ex}
 
-\pause
-
+Example: $\Pair ^ n$ is a depth-$n$, perfect, binary, leaf tree.
 }
 
 \framet{Associating functor composition}{
+\vspace{10ex}
+$$(h \circ g) \circ f \simeq h \circ (g \circ f)$$
+ 
+\vspace{10ex}
+ 
 \pause
+Does the same FFT algorithm arise?
+}
 
-Right-associated functor exponentiation
+\framet{Associating functor exponentiation}{
+
+Right-associated/top-down:
 
 > type family RPow h n where
 >   RPow h Z      = Par1
 >   RPow h (S n)  = h :.: RPow h n
 
-Left-associated functor exponentiation
+Left-associated/bottom-up:
 
 > type family LPow h n where
 >   LPow h Z      = Par1
 >   LPow h (S n)  = LPow h n :.: h
 
+FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
 
 }
 
-\framet{Top-down trees --- decimation in time}{}
-\framet{Bottom-up trees --- decimation in frequency}{}
-\framet{Generic FFT}{}
+\framet{|fft @(RPow Pair N0)|}{\vspace{-0.0ex}\wfig{5.0in}{circuits/fft-rb0}}
+\framet{|fft @(LPow Pair N0)|}{\vspace{-0.0ex}\wfig{5.0in}{circuits/fft-lb0}}
+\framet{|fft @(RPow Pair N1)|}{\vspace{-6.0ex}\wfig{4.8in}{circuits/fft-rb1}}
+\framet{|fft @(LPow Pair N1)|}{\vspace{-6.0ex}\wfig{4.8in}{circuits/fft-lb1}}
+\framet{|fft @(RPow Pair N2)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-rb2}}
+\framet{|fft @(LPow Pair N2)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-lb2}}
+\framet{|fft @(RPow Pair N3)|}{\vspace{-2.0ex}\wfig{4.6in}{circuits/fft-rb3}}
+\framet{|fft @(LPow Pair N3)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-lb3}}
+\framet{|fft @(RPow Pair N4)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-rb4}}
+\framet{|fft @(LPow Pair N4)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb4}}
+\framet{|fft @(RPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-rb5}}
+\framet{|fft @(LPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb5}}
 
-
-\framet{Shaped types}{
-
-Perfect binary tree of depth $n$:
-
-$$\overbrace{P \circ \cdots \circ P}^{n \text{~times}}$$
-
-}
+%% \framet{Generic FFT}{}
 
 
 \framet{Concluding remarks}{
+
+Type-driven, parallel-friendly algorithm:
 \begin{itemize}
-\item Generic (type-driven), parallel-friendly algorithm
-\item Some well-known algorithms as special cases
-\item Move factorization into the types.
-\item No arrays! Why not?
-  \begin{itemize}
-  \item Poorly composable
-  \item Index computations
-  \item Out-of-bounds errors
-  \end{itemize}
+\item Factor types, not numbers.
+\item Well-known algorithms as special cases.
+\item Works well with \texttt{GHC.Generics}.
 \end{itemize}
+
+\pause
+\vspace{3ex}
+Pleasant alternative to array algorithms:
+\begin{itemize}
+\item Elegantly compositional.
+\item Free of index computations.
+\item Safe from out-of-bounds errors.
+\end{itemize}
+
 }
 
-\nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}} #2}
+\nc{\pcredit}[3]{\item \href{#1}{\wpicture{0.75in}{#3}}\ \  #2}
 
 \framet{Picture credits}{
 
@@ -509,7 +512,8 @@ $$\overbrace{P \circ \cdots \circ P}^{n \text{~times}}$$
 
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
 \pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{multi-circle}
-% \pcredit{https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm\#/media/File:Cooley-tukey-general.png}{Steven G. Johnson}{cooley-tukey-general}
+\pcredit{https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm}{Steven G. Johnson}{cooley-tukey-general}
+
 
 \end{itemize}
 }

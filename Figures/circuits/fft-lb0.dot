@@ -1,0 +1,13 @@
+digraph fft_lb0 {
+  rankdir=LR;
+  node [shape=Mrecord];
+  bgcolor=transparent;
+  nslimit=20;
+  ranksep="0.75";
+  c0 [label="{In|{<Out0>|<Out1>}}"];
+  c1 [label="{{<In0>|<In1>}|Out}"];
+  c0:Out0 -> c1:In0;
+  c0:Out1 -> c1:In1;
+}
+
+// No components.

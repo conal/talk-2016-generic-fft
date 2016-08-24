@@ -1,5 +1,7 @@
 %% Misc lhs2TeX directives
 
+%format family = "\mathbf{family}"
+
 %format <$> = "\mathbin{<\!\!\!\$\!\!\!>}"
 
 % Got from Andres L:
@@ -14,6 +16,7 @@
 
 %% hack: add missing space, e.g., before "{" in data type decl
 %format SPACE = "\ {}"
+%format NOP = "{}"
 
 %format R = "\mathbb{R}"
 %format C = "\mathbb{C}"
@@ -60,3 +63,6 @@
 %format Pair = "\Pair"
 
 %format Par1 = "\Varid{Id}"
+
+%% %format @ = "\mathbin{@}"
+%format @ = "\,\mathord{@}"

@@ -1,3 +1,6 @@
+up:
+	cd ../..; make
+
 all: fft-lb0.pdf fft-lb1.pdf fft-lb2.pdf fft-lb3.pdf fft-lb4.pdf fft-lb5.pdf \
      fft-rb0.pdf fft-rb1.pdf fft-rb2.pdf fft-rb3.pdf fft-rb4.pdf fft-rb5.pdf
 
@@ -15,7 +18,7 @@ all: fft-lb0.pdf fft-lb1.pdf fft-lb2.pdf fft-lb3.pdf fft-lb4.pdf fft-lb5.pdf \
 %.png: %.dot
 	dot -Gdpi=200 -Tpng $< -o $@
 
-figures/%.jpg: %.dot
+%.jpg: %.dot
 	dot -Gdpi=200 -Tjpg $< -o $@
 
 %.see: %

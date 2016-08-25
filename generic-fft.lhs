@@ -485,13 +485,13 @@ FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
 \framet{|fft @(LPow Pair N0)|}{\vspace{-0.0ex}\wfig{5.0in}{circuits/fft-lb0}}
 \framet{|fft @(RPow Pair N1)|}{\vspace{-6.0ex}\wfig{4.8in}{circuits/fft-rb1}}
 \framet{|fft @(LPow Pair N1)|}{\vspace{-6.0ex}\wfig{4.8in}{circuits/fft-lb1}}
-\framet{|fft @(RPow Pair N2)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-rb2}}
-\framet{|fft @(LPow Pair N2)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-lb2}}
-\framet{|fft @(RPow Pair N3)|}{\vspace{-2.0ex}\wfig{4.6in}{circuits/fft-rb3}}
-\framet{|fft @(LPow Pair N3)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-lb3}}
-\framet{|fft @(RPow Pair N4)|}{\vspace{-3.0ex}\wfig{4.6in}{circuits/fft-rb4}}
-\framet{|fft @(LPow Pair N4)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb4}}
-\framet{|fft @(RPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-rb5}}
+\framet{|fft @(RPow Pair N2)|}{\vspace{-2.0ex}\wfig{4.6in}{circuits/fft-rb2}}
+\framet{|fft @(LPow Pair N2)|}{\vspace{-2.0ex}\wfig{4.6in}{circuits/fft-lb2}}
+\framet{|fft @(RPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-rb3}}
+\framet{|fft @(LPow Pair N3)|}{\vspace{-0.0ex}\wfig{4.7in}{circuits/fft-lb3}}
+\framet{|fft @(RPow Pair N4)|}{\vspace{-2.0ex}\wfig{4.5in}{circuits/fft-rb4}}
+\framet{|fft @(LPow Pair N4)|}{\vspace{-0.0ex}\wfig{4.5in}{circuits/fft-lb4}}
+\framet{|fft @(RPow Pair N5)|}{\vspace{-1.0ex}\wfig{4.6in}{circuits/fft-rb5}}
 \framet{|fft @(LPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb5}}
 
 %% \framet{Generic FFT}{}

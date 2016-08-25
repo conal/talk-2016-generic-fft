@@ -6,7 +6,10 @@ all: $(TARG).pdf
 
 see: $(TARG).see
 
-%.pdf: %.tex Makefile
+dots = $(wildcard Figures/circuits/*.dot)
+pdfs = $(addsuffix .pdf, $(basename $(dots)))
+
+%.pdf: %.tex $(pdfs) Makefile
 	pdflatex $*.tex
 
 # --poly is default for lhs2TeX
@@ -18,6 +21,11 @@ showpdf = open -a Skim.app
 
 %.see: %.pdf
 	${showpdf} $*.pdf
+
+%.pdf: %.dot Makefile
+	dot -Tpdf $< -o $@
+
+pdfs: $(pdfs)
 
 clean:
 	rm $(TARG).{tex,pdf,aux,nav,snm,ptb}

@@ -208,9 +208,9 @@ Direct implementation does $O(n^2)$ work.
 \wfig{4.8in}{circuits/dot-r3-d}
 }
 
-\framet{|(<.>) :: RBin N2 C -> RBin N2 C -> C|}{
-\vspace{-2ex}
-\wfig{3.5in}{circuits/dot-r2-c}
+\framet{|(<.>) :: RBin N3 C -> RBin N3 C -> C|}{
+\vspace{-1ex}
+\wfig{4in}{circuits/dot-r3-c}
 }
 
 \framet{|powers :: R -> RBin N4 R| --- unoptimized}{
@@ -222,7 +222,7 @@ Direct implementation does $O(n^2)$ work.
 \wfig{4.8in}{circuits/powers-rt4}
 }
 \framet{|powers :: C -> RBin N4 C|}{
-\vspace{-2.8ex}
+\vspace{-2.2ex}
 \wfig{3.8in}{circuits/powersp-rb4-c}
 }
 \framet{|powers :: C -> RBin N3 C|}{
@@ -235,9 +235,19 @@ Direct implementation does $O(n^2)$ work.
 %% \wfig{4.25in}{circuits/twiddles-rb2-rb3}
 %% }
 
+%% \framet{|dft :: RBin N1 C -> RBin N1 C|}{
+%% \vspace{-1ex}
+%% \wfig{4in}{circuits/dft-rb1}
+%% }
+
 \framet{|dft :: RBin N2 C -> RBin N2 C|}{
-\vspace{-2ex}
-\wfig{3.25in}{circuits/dft-rb2}
+\vspace{-1ex}
+\wfig{4in}{circuits/dft-rb2}
+}
+
+\framet{|dft :: RBin N3 C -> RBin N3 C|}{
+\vspace{-1ex}
+\wfig{4in}{circuits/dft-rb3-scaled}
 }
 
 %endif
@@ -405,10 +415,29 @@ Also closed under composition:
 
 }
 
-\framet{Optimizing}{
-%% \begin{center}
-%% Optimize |fft| for |g :.: f|.
-%% \end{center}
+%if False
+\framet{Typing}{
+
+> ffts' :: ... => g (f C) -> FFO g (f C)
+> ffts' = transpose . fmap fft . transpose
+>
+> transpose  :: g (f C)      -> f (g C)
+> fmap fft   :: f (g C)      -> f (FFO g C)
+> transpose  :: f (FFO g C)  -> FFO g (f C)
+
+> instance NOP ... => FFT (g :.: f) where
+>   type FFO (g :.: f) = FFO f :.: FFO g
+>   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
+>
+> ffts'      :: g (f C)      -> FFO g (f C)
+> twiddle    :: FFO g (f C)  -> FFO g (f C)
+> transpose  :: FFO g (f C)  -> f (FFO g C)
+> ffts'      :: f (FFO g C)  -> FFO f (FFO g C)
+
+}
+%endif
+
+\framet{Optimizing |fft| for |g :.: f|}{
 
 >     ffts' . transpose . twiddle . ffts'
 > ==     
@@ -494,22 +523,25 @@ FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
 \framet{|fft @(RPow Pair N5)|}{\vspace{-1.0ex}\wfig{4.6in}{circuits/fft-rb5}}
 \framet{|fft @(LPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb5}}
 
-%% \framet{Generic FFT}{}
+\framet{|fft @(RPow Pair N6)|}{\vspace{-1.0ex}\wfig{4.6in}{circuits/fft-rb6-scaled}}
+\framet{|fft @(LPow Pair N6)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb6-scaled}}
 
+
+%% \framet{Generic FFT}{}
 
 \framet{Concluding remarks}{
 
 Type-driven, parallel-friendly algorithm:
-\begin{itemize}
+\begin{itemize}\itemsep2ex
 \item Factor types, not numbers.
 \item Well-known algorithms as special cases.
 \item Works well with \texttt{GHC.Generics}.
 \end{itemize}
 
 \pause
-\vspace{3ex}
-Pleasant alternative to array algorithms:
-\begin{itemize}
+\vspace{2ex}
+In contrast to array algorithms:
+\begin{itemize}\itemsep2ex
 \item Elegantly compositional.
 \item Free of index computations.
 \item Safe from out-of-bounds errors.

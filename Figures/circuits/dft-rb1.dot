@@ -1,0 +1,40 @@
+digraph dft_rb1 {
+  rankdir=LR;
+  node [shape=Mrecord];
+  bgcolor=transparent;
+  nslimit=20;
+  ranksep="0.5";
+  c0 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c1 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c2 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c3 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c4 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c17 [label="{6.123233995736766e-17|{<Out0>}}"];
+  c19 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>}}"];
+  c20 [label="{{<In0>|<In1>|<In2>|<In3>}|Out}"];
+  c23 [label="{{<In0>|<In1>}|\×|{<Out0>}}"];
+  c24 [label="{{<In0>|<In1>}|\×|{<Out0>}}"];
+  c25 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c19:Out0 -> c0:In0;
+  c19:Out2 -> c0:In1;
+  c19:Out0 -> c1:In0;
+  c4:Out0 -> c1:In1;
+  c19:Out1 -> c2:In0;
+  c19:Out3 -> c2:In1;
+  c19:Out1 -> c3:In0;
+  c25:Out0 -> c3:In1;
+  c23:Out0 -> c4:In0;
+  c19:Out3 -> c4:In1;
+  c0:Out0 -> c20:In0;
+  c2:Out0 -> c20:In1;
+  c1:Out0 -> c20:In2;
+  c3:Out0 -> c20:In3;
+  c17:Out0 -> c23:In0;
+  c19:Out2 -> c23:In1;
+  c17:Out0 -> c24:In0;
+  c19:Out3 -> c24:In1;
+  c24:Out0 -> c25:In0;
+  c19:Out2 -> c25:In1;
+}
+
+// dft-rb1 components: 5 +, 1 6.123233995736766e-17, 2 ×, 1 −, 9 total. Max depth: 3.

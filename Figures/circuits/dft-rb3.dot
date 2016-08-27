@@ -3,7 +3,7 @@ digraph dft_rb3 {
   node [shape=Mrecord];
   bgcolor=transparent;
   nslimit=20;
-  ranksep="6.0";
+  ranksep="40.0";
   c0 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c1 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c2 [label="{{<In0>|<In1>}|+|{<Out0>}}"];

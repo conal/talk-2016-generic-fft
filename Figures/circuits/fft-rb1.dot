@@ -6,22 +6,22 @@ digraph fft_rb1 {
   ranksep="1.5";
   c0 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c1 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
-  c13 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>}}"];
-  c14 [label="{{<In0>|<In1>|<In2>|<In3>}|Out}"];
-  c15 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c16 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c13:Out0 -> c0:In0;
-  c13:Out2 -> c0:In1;
-  c13:Out1 -> c1:In0;
-  c13:Out3 -> c1:In1;
-  c0:Out0 -> c14:In0;
-  c1:Out0 -> c14:In1;
-  c15:Out0 -> c14:In2;
-  c16:Out0 -> c14:In3;
-  c13:Out0 -> c15:In0;
-  c13:Out2 -> c15:In1;
-  c13:Out1 -> c16:In0;
-  c13:Out3 -> c16:In1;
+  c9 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>}}"];
+  c10 [label="{{<In0>|<In1>|<In2>|<In3>}|Out}"];
+  c11 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c12 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c9:Out0 -> c0:In0 [];
+  c9:Out2 -> c0:In1 [];
+  c9:Out1 -> c1:In0 [];
+  c9:Out3 -> c1:In1 [];
+  c0:Out0 -> c10:In0 [];
+  c1:Out0 -> c10:In1 [];
+  c11:Out0 -> c10:In2 [];
+  c12:Out0 -> c10:In3 [];
+  c9:Out0 -> c11:In0 [];
+  c9:Out2 -> c11:In1 [];
+  c9:Out1 -> c12:In0 [];
+  c9:Out3 -> c12:In1 [];
 }
 
 // fft-rb1 components: 2 +, 2 −, 4 total. Max depth: 1.

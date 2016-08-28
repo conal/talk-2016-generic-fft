@@ -3,7 +3,7 @@ digraph fft_lb2 {
   node [shape=Mrecord];
   bgcolor=transparent;
   nslimit=20;
-  ranksep="1.25";
+  ranksep="2.2";
   c0 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c1 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c2 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
@@ -12,69 +12,56 @@ digraph fft_lb2 {
   c5 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c6 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
   c7 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
-  c8 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
-  c22 [label="{6.123233995736766e-17|{<Out0>}}"];
-  c24 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>|<Out4>|<Out5>|<Out6>|<Out7>}}"];
-  c25 [label="{{<In0>|<In1>|<In2>|<In3>|<In4>|<In5>|<In6>|<In7>}|Out}"];
-  c28 [label="{{<In0>|<In1>}|\×|{<Out0>}}"];
-  c29 [label="{{<In0>|<In1>}|\×|{<Out0>}}"];
-  c30 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c31 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c32 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c33 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c34 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c35 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c36 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c37 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c38 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
-  c24:Out0 -> c0:In0
-  c24:Out4 -> c0:In1
-  c24:Out1 -> c1:In0
-  c24:Out5 -> c1:In1
-  c24:Out2 -> c2:In0
-  c24:Out6 -> c2:In1
-  c24:Out3 -> c3:In0
-  c24:Out7 -> c3:In1
-  c0:Out0 -> c4:In0
-  c2:Out0 -> c4:In1
-  c1:Out0 -> c5:In0
-  c3:Out0 -> c5:In1
-  c30:Out0 -> c6:In0
-  c8:Out0 -> c6:In1
-  c31:Out0 -> c7:In0
-  c38:Out0 -> c7:In1
-  c28:Out0 -> c8:In0
-  c33:Out0 -> c8:In1
-  c4:Out0 -> c25:In0
-  c5:Out0 -> c25:In1
-  c6:Out0 -> c25:In2
-  c7:Out0 -> c25:In3
-  c34:Out0 -> c25:In4
-  c35:Out0 -> c25:In5
-  c36:Out0 -> c25:In6
-  c37:Out0 -> c25:In7
-  c22:Out0 -> c28:In0
-  c32:Out0 -> c28:In1
-  c22:Out0 -> c29:In0
-  c33:Out0 -> c29:In1
-  c24:Out0 -> c30:In0
-  c24:Out4 -> c30:In1
-  c24:Out1 -> c31:In0
-  c24:Out5 -> c31:In1
-  c24:Out2 -> c32:In0
-  c24:Out6 -> c32:In1
-  c24:Out3 -> c33:In0
-  c24:Out7 -> c33:In1
-  c0:Out0 -> c34:In0
-  c2:Out0 -> c34:In1
-  c1:Out0 -> c35:In0
-  c3:Out0 -> c35:In1
-  c30:Out0 -> c36:In0
-  c8:Out0 -> c36:In1
-  c31:Out0 -> c37:In0
-  c38:Out0 -> c37:In1
-  c29:Out0 -> c38:In0
-  c32:Out0 -> c38:In1
+  c18 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>|<Out4>|<Out5>|<Out6>|<Out7>}}"];
+  c19 [label="{{<In0>|<In1>|<In2>|<In3>|<In4>|<In5>|<In6>|<In7>}|Out}"];
+  c22 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c23 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c24 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c25 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c26 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c27 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c28 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c29 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c18:Out0 -> c0:In0 [];
+  c18:Out4 -> c0:In1 [];
+  c18:Out1 -> c1:In0 [];
+  c18:Out5 -> c1:In1 [];
+  c18:Out2 -> c2:In0 [];
+  c18:Out6 -> c2:In1 [];
+  c18:Out3 -> c3:In0 [];
+  c18:Out7 -> c3:In1 [];
+  c0:Out0 -> c4:In0 [];
+  c2:Out0 -> c4:In1 [];
+  c1:Out0 -> c5:In0 [];
+  c3:Out0 -> c5:In1 [];
+  c22:Out0 -> c6:In0 [];
+  c25:Out0 -> c6:In1 [];
+  c23:Out0 -> c7:In0 [];
+  c24:Out0 -> c7:In1 [];
+  c4:Out0 -> c19:In0 [];
+  c5:Out0 -> c19:In1 [];
+  c6:Out0 -> c19:In2 [];
+  c29:Out0 -> c19:In3 [];
+  c26:Out0 -> c19:In4 [];
+  c27:Out0 -> c19:In5 [];
+  c28:Out0 -> c19:In6 [];
+  c7:Out0 -> c19:In7 [];
+  c18:Out0 -> c22:In0 [];
+  c18:Out4 -> c22:In1 [];
+  c18:Out1 -> c23:In0 [];
+  c18:Out5 -> c23:In1 [];
+  c18:Out2 -> c24:In0 [];
+  c18:Out6 -> c24:In1 [];
+  c18:Out3 -> c25:In0 [];
+  c18:Out7 -> c25:In1 [];
+  c0:Out0 -> c26:In0 [];
+  c2:Out0 -> c26:In1 [];
+  c1:Out0 -> c27:In0 [];
+  c3:Out0 -> c27:In1 [];
+  c22:Out0 -> c28:In0 [];
+  c25:Out0 -> c28:In1 [];
+  c23:Out0 -> c29:In0 [];
+  c24:Out0 -> c29:In1 [];
 }
 
-// fft-lb2 components: 9 +, 1 6.123233995736766e-17, 2 ×, 9 −, 21 total. Max depth: 4.
+// fft-lb2 components: 8 +, 8 −, 16 total. Max depth: 2.

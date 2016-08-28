@@ -7,7 +7,7 @@ all: $(TARG).pdf
 see: $(TARG).see
 
 dots = $(wildcard Figures/circuits/*.dot)
-pdfs = $(addsuffix .pdf, $(basename $(dots)))
+pdfs = $(addsuffix .pdf, $(basename $(dots))) $(wildcard Figures/circuits/*-scaled.pdf)
 
 %.pdf: %.tex $(pdfs) Makefile
 	pdflatex $*.tex
@@ -22,7 +22,7 @@ showpdf = open -a Skim.app
 %.see: %.pdf
 	${showpdf} $*.pdf
 
-%.pdf: %.dot Makefile
+%.pdf: %.dot # Makefile
 	dot -Tpdf $< -o $@
 
 pdfs: $(pdfs)

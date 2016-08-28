@@ -75,7 +75,7 @@
 
 %% \partframe{\href{http://i.imgur.com/BuO2INb.gif}{Paths from circles}}
 
-\framet{Epicycles}{\wfig{3in}{epicycles}}
+%% \framet{Ptolemaic view of the universe}{\wfig{3in}{epicycles}}
 
 \framet{Paths from circular motion}{
 
@@ -91,15 +91,14 @@
 \item Circular motion:
   \begin{itemize}
   % \item Center
-  \item Radius, $r$
   \item Frequency/speed, $f$
+  \item Radius, $r$
   \item Starting angle, $a$
   \end{itemize}
 \item Combine several motions: center of each follows path of previous.
 \item Observe final motion.
 \item \href{http://i.imgur.com/BuO2INb.gif}{Another example}
 \end{itemize}
-
 }
 
 \framet{Paths from circular motions}{
@@ -108,11 +107,12 @@
 
 $$x(t) = \sum_{(f,r,a) \in S} (r \cos (2 \pi f t + a), r \sin (2 \pi f t + a))$$
 
-\ 
+\pause\ 
 
 More succinct in complex polar form:
 $$ x(t) = \sum_{(f,r,a) \in S} r \, e ^ {i (2 \pi f t + a)} $$
 
+\pause
 Yet more succinct with $X = r e^{i a}$:
 $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 
@@ -143,7 +143,8 @@ $$x(t) = \sum_{(f,X) \in S} X \, e ^ {i 2 \pi f t}$$
 \framet{Some other uses of the Fourier transform}{
 
 \begin{itemize}\itemsep2ex
-\item Hearing
+\item Hearing (roughly)
+\item Geocentrism (Ptolemy's \href{https://en.wikipedia.org/wiki/Deferent_and_epicycle}{deferent \& epicycle})
 \item Sound \& image compression
 \item Audio equalization
 \item Solving differential equations
@@ -168,7 +169,7 @@ $$
 %\vspace{0.75in}
 ~
 
-Direct implementation does $O(n^2)$ work.
+Direct implementation does $O(N^2)$ work.
 \vspace{0.5in}
 }
 
@@ -203,49 +204,49 @@ Direct implementation does $O(n^2)$ work.
 
 %if False
 
-\framet{|(<.>) :: RBin N3 R -> RBin N3 R -> R|}{
+\framet{|(<.>) :: RPow Pair N3 R -> RPow Pair N3 R -> R|}{
 \vspace{-7ex}
 \wfig{4.8in}{circuits/dot-r3-d}
 }
 
-\framet{|(<.>) :: RBin N3 C -> RBin N3 C -> C|}{
+\framet{|(<.>) :: RPow Pair N3 C -> RPow Pair N3 C -> C|}{
 \vspace{-1ex}
 \wfig{4in}{circuits/dot-r3-c}
 }
 
-\framet{|powers :: R -> RBin N4 R| --- unoptimized}{
+\framet{|powers :: R -> RPow Pair N4 R| --- unoptimized}{
 \vspace{-2ex}
 \wfig{3.8in}{circuits/powers-rt4-no-opt}
 }
-\framet{|powers :: R -> RBin N4 R| --- optimized}{
+\framet{|powers :: R -> RPow Pair N4 R| --- optimized}{
 \vspace{-2ex}
 \wfig{4.8in}{circuits/powers-rt4}
 }
-\framet{|powers :: C -> RBin N4 C|}{
+\framet{|powers :: C -> RPow Pair N4 C|}{
 \vspace{-2.2ex}
 \wfig{3.8in}{circuits/powersp-rb4-c}
 }
-\framet{|powers :: C -> RBin N3 C|}{
+\framet{|powers :: C -> RPow Pair N3 C|}{
 \vspace{-2.8ex}
 \wfig{4.25in}{circuits/powersp-rb3-c}
 }
 
-%% \framet{|twiddles :: RBin N2 (RBin N3 C)|}{
+%% \framet{|twiddles :: RPow Pair N2 (RPow Pair N3 C)|}{
 %% \vspace{-2.8ex}
 %% \wfig{4.25in}{circuits/twiddles-rb2-rb3}
 %% }
 
-%% \framet{|dft :: RBin N1 C -> RBin N1 C|}{
+%% \framet{|dft :: RPow Pair N1 C -> RPow Pair N1 C|}{
 %% \vspace{-1ex}
 %% \wfig{4in}{circuits/dft-rb1}
 %% }
 
-\framet{|dft :: RBin N2 C -> RBin N2 C|}{
+\framet{|dft :: RPow Pair N2 C -> RPow Pair N2 C|}{
 \vspace{-1ex}
 \wfig{4in}{circuits/dft-rb2}
 }
 
-\framet{|dft :: RBin N3 C -> RBin N3 C|}{
+\framet{|dft :: RPow Pair N3 C -> RPow Pair N3 C|}{
 \vspace{-1ex}
 \wfig{4in}{circuits/dft-rb3-scaled}
 }
@@ -255,7 +256,7 @@ Direct implementation does $O(n^2)$ work.
 \framet{Fast Fourier transform (FFT)}{\upperDFT
 
 \begin{itemize}\itemsep4ex
-\item DFT in $O(n \log n)$ work
+\item DFT in $O(N \log N)$ work
 \item Better numeric properties than naive DFT
 \item Long history:
   \begin{itemize}
@@ -375,13 +376,14 @@ Factor types, not numbers!
 > instance (Sized g, Sized f) => Sized (g :.: f) where
 >   size = size @g * size @f
 
-\vspace{-3ex}
+\vspace{-4ex}
 
+\pause
 Also closed under composition:
 % |Functor|, |Applicative|, |Foldable|, |Traversable|.
 
 \vspace{-1.5ex}
-\begin{itemize}\itemsep-0.3ex
+\begin{itemize}
 \item |Functor|
 \item |Applicative|
 \item |Foldable|
@@ -500,13 +502,15 @@ Right-associated/top-down:
 >   RPow h Z      = Par1
 >   RPow h (S n)  = h :.: RPow h n
 
+{}
+
 Left-associated/bottom-up:
 
 > type family LPow h n where
 >   LPow h Z      = Par1
 >   LPow h (S n)  = LPow h n :.: h
 
-FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
+%% FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
 
 }
 
@@ -534,7 +538,7 @@ FFT: \emph{Decimation in Time} (DIT) vs \emph{Decimation in Frequency} (DIF).
 Type-driven, parallel-friendly algorithm:
 \begin{itemize}\itemsep2ex
 \item Factor types, not numbers.
-\item Well-known algorithms as special cases.
+\item Well-known algorithms as special cases (DIT \& DIF).
 \item Works well with \texttt{GHC.Generics}.
 \end{itemize}
 
@@ -555,7 +559,8 @@ In contrast to array algorithms:
 
 \begin{itemize}\itemsep3ex
 
-\pcredit{https://en.wikipedia.org/wiki/Deferent_and_epicycle}{Giovanni Cassini, Roger Long, James Ferguson}{epicycles}
+%% \pcredit{https://en.wikipedia.org/wiki/Deferent_and_epicycle}{Giovanni Cassini, Roger Long, James Ferguson}{epicycles}
+
 \pcredit{https://works.bepress.com/frank_farris/14/}{Frank A. Farris}{Farris/figs-1-2.pdf}
 \pcredit{http://blog.ivank.net/fourier-transform-clarified.html}{Ivan Kuckir}{multi-circle}
 \pcredit{https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm}{Steven G. Johnson}{cooley-tukey-general}

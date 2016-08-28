@@ -12,8 +12,9 @@ all: fft-lb0.pdf fft-lb1.pdf fft-lb2.pdf fft-lb3.pdf fft-lb4.pdf fft-lb5.pdf \
 %.pdf: %.dot Makefile
 	dot -Tpdf $< -o $@
 
+# Remove page dimensions, to make the results self-scaling
 %.svg: %.dot Makefile
-	dot -Tsvg $< -o $@
+	dot -Tsvg $< | sed -e 's/<svg width.*/<svg/'> $@
 
 %.png: %.dot
 	dot -Gdpi=200 -Tpng $< -o $@

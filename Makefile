@@ -36,5 +36,5 @@ STASH=conal@conal.net:/home/conal/web/talks
 web: web-token
 
 web-token: $(TARG).pdf
-	scp $? $(STASH)/$(TARG)-lambdajam-2015.pdf
+	scp $? $(STASH)/$(TARG).pdf
 	touch $@

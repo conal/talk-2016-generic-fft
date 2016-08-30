@@ -520,22 +520,19 @@ Left-associated/bottom-up:
 \framet{|fft @(LPow Pair N1)|}{\vspace{-6.0ex}\wfig{4.8in}{circuits/fft-lb1}}
 \framet{|fft @(RPow Pair N2)|}{\vspace{-2.5ex}\wfig{4.6in}{circuits/fft-rb2}}
 \framet{|fft @(LPow Pair N2)|}{\vspace{-2.5ex}\wfig{4.6in}{circuits/fft-lb2}}
-\framet{|fft @(RPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-rb3}}
-\framet{|fft @(LPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-lb3}}
-\framet{|fft @(RPow Pair N4)|}{\vspace{-2.0ex}\wfig{4.5in}{circuits/fft-rb4}}
-\framet{|fft @(LPow Pair N4)|}{\vspace{-1.0ex}\wfig{4.5in}{circuits/fft-lb4}}
-\framet{|fft @(RPow Pair N5)|}{\vspace{-1.0ex}\wfig{4.6in}{circuits/fft-rb5}}
-\framet{|fft @(LPow Pair N5)|}{\vspace{-0.0ex}\wfig{4.6in}{circuits/fft-lb5}}
-
-%% The next two are too large for LaTeX, so I resize them by printing to a
-%% PDF, scaling to fit the page. I'd much rather have an automated procedure.
-\framet{|fft @(RPow Pair N6)|}{\vspace{-5.0ex}\wfig{4.6in}{circuits/fft-rb6-scaled}}
-\framet{|fft @(LPow Pair N6)|}{\vspace{-5.0ex}\wfig{4.6in}{circuits/fft-lb6-scaled}}
+\framet{|fft @(RPow Pair N3)|}{\vspace{-6.5ex}\wfig{4.8in}{circuits/fft-rb3}}
+\framet{|fft @(LPow Pair N3)|}{\vspace{-6.5ex}\wfig{4.8in}{circuits/fft-lb3}}
+\framet{|fft @(RPow Pair N4)|}{\vspace{-3.0ex}\wfig{4.5in}{circuits/fft-rb4}}
+\framet{|fft @(LPow Pair N4)|}{\vspace{-2.0ex}\wfig{4.5in}{circuits/fft-lb4}}
+\framet{|fft @(RPow Pair N5)|}{\vspace{-7.0ex}\wfig{4.9in}{circuits/fft-rb5}}
+\framet{|fft @(LPow Pair N5)|}{\vspace{-4.0ex}\wfig{4.9in}{circuits/fft-lb5}}
+\framet{|fft @(RPow Pair N6)|}{\vspace{-4.0ex}\wfig{4.7in}{circuits/fft-rb6}}
+\framet{|fft @(LPow Pair N6)|}{\vspace{-2.0ex}\wfig{4.7in}{circuits/fft-lb6}}
 
 %% Contrast with DFT
-\framet{|dft @(RPow Pair N2)|}{\vspace{-1ex} \wfig{4.2in}{circuits/dft-rb2}}
+\framet{|dft @(RPow Pair N2)|}{\vspace{-1.0ex}\wfig{4.2in}{circuits/dft-rb2}}
 \framet{|fft @(RPow Pair N2)|}{\vspace{-2.5ex}\wfig{4.6in}{circuits/fft-rb2}}
-\framet{|dft @(RPow Pair N3|}{\vspace{-2ex} \wfig{4.2in}{circuits/dft-rb3-scaled}}
+\framet{|dft @(RPow Pair N3)|}{\vspace{-2.0ex}\wfig{4.2in}{circuits/dft-rb3}}
 \framet{|fft @(RPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-rb3}}
 
 

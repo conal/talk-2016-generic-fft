@@ -9,8 +9,9 @@ all: fft-lb0.pdf fft-lb1.pdf fft-lb2.pdf fft-lb3.pdf fft-lb4.pdf fft-lb5.pdf \
 
 # twiddles-rb2-rb3.pdf
 
+# Cap the size so that LaTeX doesn't choke.
 %.pdf: %.dot Makefile
-	dot -Tpdf $< -o $@
+	dot -Tpdf -Gsize=10,10 $< -o $@
 
 # Remove page dimensions, to make the results self-scaling
 %.svg: %.dot Makefile

@@ -22,8 +22,9 @@ showpdf = open -a Skim.app
 %.see: %.pdf
 	${showpdf} $*.pdf
 
+# Cap the size so that LaTeX doesn't choke.
 %.pdf: %.dot # Makefile
-	dot -Tpdf $< -o $@
+	dot -Tpdf -Gsize=10,10 $< -o $@
 
 pdfs: $(pdfs)
 

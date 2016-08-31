@@ -52,6 +52,7 @@
 
 \setlength{\itemsep}{2ex}
 \setlength{\parskip}{1ex}
+\setlength{\blanklineskip}{1.5ex}
 
 % \setlength{\blanklineskip}{1.5ex}
 
@@ -186,21 +187,34 @@ Direct implementation does $O(N^2)$ work.
 
 \framet{DFT in Haskell}{\upperDFT 
 
-> dft :: ... => f C -> f C
-> dft xs = (<.> xs) <$> twiddles
+\pause
 
+> dft :: ... => f C -> f C
+> dft xs = twiddles $@ xs
+>
 > twiddles :: ... => g (f C)
 > twiddles = powers <$> powers (exp (- i * 2 * pi / size @(g :.: f)))
 
+\pause
+\vspace{-2ex}
+\hrule
+
+%% Utility:
+
 > powers :: ... => a -> f a
 > powers = fst . lscanAla Product . pure
-
-> (<.>) :: ... => f a -> f a -> a
+>
+> ($@) :: ... => n (m a) -> m a -> n a   -- matrix $\times$ vector
+> mat $@ vec = (<.> vec) <$> mat
+>
+> (<.>) :: ... => f a -> f a -> a        -- dot product
 > u <.> v = sum (liftA2 (*) u v)
 
 %% No arrays!
 
 }
+
+
 
 %if False
 
@@ -411,7 +425,7 @@ Also closed under composition:
 
 > ffts' :: ... => g (f C) -> FFO g (f C)
 > ffts' = transpose . fmap fft . transpose
-
+>
 > twiddle :: ... => g (f C) -> g (f C)
 > twiddle = (liftA2.liftA2) (*) twiddles
 
@@ -460,8 +474,7 @@ Uniform pairs:
 
 > data Pair a = a :# a deriving (Functor,Foldable,Traversable)
 
-> instance Sized Pair where
->   size = 2
+> instance Sized Pair where size = 2
 >
 > instance FFT Pair where
 >   type FFO Pair = Pair
@@ -536,7 +549,22 @@ Left-associated/bottom-up:
 \framet{|fft @(RPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-rb3}}
 
 
-%% \framet{Generic FFT}{}
+\framet{Generic FFT}{
+
+> class FFT f where
+>   type FFO f :: * -> *
+>   fft :: f C -> FFO f C
+
+\pause\vspace{-7ex}
+
+> SPACE SPC  default fft  ::  ( Generic1 f, Generic1 (FFO f), FFT (Rep1 f)
+>                             , FFO (Rep1 f) ~ Rep1 (FFO f) )
+>                         =>  f C -> FFO f C
+>            fft xs = to1 . fft xs . from1
+
+using \texttt{GHC.Generics}.
+
+}
 
 \framet{Concluding remarks}{
 

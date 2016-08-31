@@ -15,8 +15,10 @@
 %format NOTHING = "{}"
 
 %% hack: add missing space, e.g., before "{" in data type decl
+%format SPC = "\, {}"
 %format SPACE = "\ {}"
 %format NOP = "{}"
+%format PAUSE = "\pause"
 
 %format R = "\mathbb{R}"
 %format C = "\mathbb{C}"
@@ -25,6 +27,8 @@
 %format <*> = "\mathbin{<\!\!\!*\!\!\!>}"
 
 %format <.> = "\cdot"
+%format $@ = "\mathbin{\hat\$}"
+%% %format $@ = "\mathbin{\$\!@}"
 
 %format :.: = "\circ"
 %format :. = "\circ"
@@ -68,3 +72,8 @@
 %format @ = "\,\mathord{@}"
 
 %format FFO = Reverse
+
+%format Generic1 = Generic "_1"
+%format Rep1 = Rep "_1"
+%format to1 = to "_1"
+%format from1 = from "_1"

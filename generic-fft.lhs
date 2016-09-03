@@ -2,8 +2,8 @@
 
 % Presentation
 %\documentclass[aspectratio=1610]{beamer} % Macbook Pro screen 16:10
-\documentclass{beamer} % default aspect ratio 4:3
-%\documentclass[handout]{beamer}
+% \documentclass{beamer} % default aspect ratio 4:3
+\documentclass[handout]{beamer}
 
 \usefonttheme{serif}
 \usepackage{framed}
@@ -421,7 +421,7 @@ Also closed under composition:
 
 > instance NOP ... => FFT (g :.: f) where
 >   type FFO (g :.: f) = FFO f :.: FFO g
->   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
+>   fft = Comp1 . ffts' . transpose . twiddle . ffts' . unComp1
 
 > ffts' :: ... => g (f C) -> FFO g (f C)
 > ffts' = transpose . fmap fft . transpose
@@ -443,7 +443,7 @@ Also closed under composition:
 
 > instance NOP ... => FFT (g :.: f) where
 >   type FFO (g :.: f) = FFO f :.: FFO g
->   fft = unComp1 . ffts' . transpose . twiddle . ffts' . Comp1
+>   fft = Comp1 . ffts' . transpose . twiddle . ffts' . unComp1
 >
 > ffts'      :: g (f C)      -> FFO g (f C)
 > twiddle    :: FFO g (f C)  -> FFO g (f C)

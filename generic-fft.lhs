@@ -189,11 +189,11 @@ Direct implementation does $O(N^2)$ work.
 
 \pause
 
-> dft :: ... => f C -> f C
-> dft xs = twiddles $@ xs
->
-> twiddles :: ... => g (f C)
-> twiddles = powers <$> powers (exp (- i * 2 * pi / size @(g :.: f)))
+> dft :: forall f a. ... => Unop (f (Complex a))
+> dft xs = omegas (size @f) $@ xs
+> 
+> omegas :: ... => Int -> g (f (Complex a))
+> omegas n = powers <$> powers (exp (- i * 2 * pi / fromIntegral n))
 
 \pause
 \vspace{-2ex}
@@ -427,7 +427,7 @@ Also closed under composition:
 > ffts' = transpose . fmap fft . transpose
 >
 > twiddle :: ... => g (f C) -> g (f C)
-> twiddle = (liftA2.liftA2) (*) twiddles
+> twiddle = (liftA2.liftA2) (*) (omegas (size @(g :.: f)))
 
 }
 
@@ -543,10 +543,12 @@ Left-associated/bottom-up:
 \framet{|fft @(LPow Pair N6)|}{\vspace{-2.0ex}\wfig{4.7in}{circuits/fft-lb6}}
 
 %% Contrast with DFT
-\framet{|dft @(RPow Pair N2)|}{\vspace{-1.0ex}\wfig{4.2in}{circuits/dft-rb2}}
+\framet{|dft @(RPow Pair N2)|}{\vspace{-1.0ex}\wfig{4.7in}{circuits/dft-rb2}}
 \framet{|fft @(RPow Pair N2)|}{\vspace{-2.5ex}\wfig{4.6in}{circuits/fft-rb2}}
 \framet{|dft @(RPow Pair N3)|}{\vspace{-2.0ex}\wfig{4.2in}{circuits/dft-rb3}}
 \framet{|fft @(RPow Pair N3)|}{\vspace{-1.5ex}\wfig{4.7in}{circuits/fft-rb3}}
+\framet{|dft @(RPow Pair N4)|}{\vspace{-3.5ex}\wfig{4.7in}{circuits/dft-rb4}}
+\framet{|fft @(RPow Pair N4)|}{\vspace{-3.0ex}\wfig{4.5in}{circuits/fft-rb4}}
 
 
 \framet{Generic FFT}{

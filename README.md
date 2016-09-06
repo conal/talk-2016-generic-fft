@@ -16,3 +16,9 @@ For FFT, these algorithms are known as "decimation in time" and "decimation in f
 While the usual description of these algorithms is rather complicated, our formulation is quite simple and general.
 A key idea is to replace numeric factorization with functor factorization, i.e., numerical multiplication by functor composition.
 In doing so, index computations are eliminated in favor of common operations from our standard type classes, particularly `Functor` and `Traversable`.
+
+### Erratum
+
+The definition of DFT (which is the specification for FFT) in the talk was wrong, building from the $N^2$-th root of unity instead of the $N$-th root.
+I had tried to reuse too much between DFT and FFT.
+I've fixed the slides.

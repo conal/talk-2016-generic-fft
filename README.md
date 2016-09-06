@@ -21,4 +21,4 @@ In doing so, index computations are eliminated in favor of common operations fro
 
 The definition of DFT (which is the specification for FFT) in the talk was wrong, building from the $N^2$-th root of unity instead of the $N$-th root.
 I had tried to reuse too much between DFT and FFT.
-I've fixed the slides.
+I've fixed the Haskell code for DFT (slide 7) and the corresponding pictures (slides 34, 36, 38).

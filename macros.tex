@@ -150,3 +150,17 @@
 \newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \newcommand{\Pair}{\Varid{Pair}}
+
+\newcommand{\stat}[6]{
+#1 & #2 & #3 & #4 & #5 & #6 \\ \hline
+}
+\newcommand{\fftStats}[1]{
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  \stat{Type}{$+$}{$\times$}{$-$}{total}{max depth} \hline
+  #1
+  \hline
+\end{tabular}
+\end{center}
+}

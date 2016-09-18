@@ -29,7 +29,7 @@ showpdf = open -a Skim.app
 pdfs: $(pdfs)
 
 clean:
-	rm $(TARG).{tex,pdf,aux,nav,snm,ptb}
+	rm -f $(TARG).{tex,pdf,aux,nav,snm,ptb}
 
 web: web-token
 

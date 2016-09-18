@@ -1,0 +1,27 @@
+digraph fft_bush0 {
+  rankdir=LR;
+  node [shape=Mrecord];
+  bgcolor=transparent;
+  nslimit=20;
+  ranksep="1.5";
+  c0 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c1 [label="{{<In0>|<In1>}|+|{<Out0>}}"];
+  c9 [label="{In|{<Out0>|<Out1>|<Out2>|<Out3>}}"];
+  c10 [label="{{<In0>|<In1>|<In2>|<In3>}|Out}"];
+  c13 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c14 [label="{{<In0>|<In1>}|\−|{<Out0>}}"];
+  c9:Out0 -> c0:In0 [];
+  c9:Out2 -> c0:In1 [];
+  c9:Out1 -> c1:In0 [];
+  c9:Out3 -> c1:In1 [];
+  c0:Out0 -> c10:In0 [];
+  c1:Out0 -> c10:In1 [];
+  c13:Out0 -> c10:In2 [];
+  c14:Out0 -> c10:In3 [];
+  c9:Out0 -> c13:In0 [];
+  c9:Out2 -> c13:In1 [];
+  c9:Out1 -> c14:In0 [];
+  c9:Out3 -> c14:In1 [];
+}
+
+// fft-bush0 components: 2 +, 2 −, 4 total. Max depth: 1.

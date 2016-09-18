@@ -22,3 +22,36 @@ In doing so, index computations are eliminated in favor of common operations fro
 The definition of DFT (which is the specification for FFT) in the talk was wrong, building from the $N^2$-th root of unity instead of the $N$-th root.
 I had tried to reuse too much between DFT and FFT.
 I've fixed the Haskell code for DFT (slide 7) and the corresponding pictures (slides 34, 36, 38).
+
+### Extras
+
+The talk shows FFT for top-down and bottom-up perfect binary leaf trees trees (right- and left-associated `Pair` compositions). Later, I tried out a different data type---a sort of balanced counterpart to left- and right-associated composition:
+
+``` haskell
+type family Bush n where
+  Bush Z     = Pair
+  Bush (S n) = Bush n :.: Bush n
+```
+
+A bush of height $n$ has size $2^{2^n}$, i.e., 2, 4, 16, 256, 65536, .... I tried parallel scan and FFT up to height three (size 256).
+
+The work and "depth" (ideal parallel time) beats both bottom-up and top-down binary trees (DIF and DIT).
+
+For 16 complex inputs and results:
+```
+fft-rb4  : 74 +, 40 ×, 74 −, 197 total. Max depth: 8.
+fft-lb4  : 74 +, 40 ×, 74 −, 197 total. Max depth: 8.
+fft-bush2: 72 +, 32 ×, 72 −, 186 total. Max depth: 6.
+```
+
+For 256 complex inputs and results:
+```
+fft-rb8  : 2690 +, 2582 ×, 2690 −, 8241 total. Max depth: 20.
+fft-lb8  : 2690 +, 2582 ×, 2690 −, 8241 total. Max depth: 20.
+fft-bush3: 2528 +, 1922 ×, 2528 −, 7310 total. Max depth: 14.
+```
+
+To do: coalesce the accidentally distinct redundant constants (different numeric approximations of the same real value), and compare again.
+
+I've added a few new slides to the end of the talk.
+

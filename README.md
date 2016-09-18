@@ -23,7 +23,7 @@ The definition of DFT (which is the specification for FFT) in the talk was wrong
 I had tried to reuse too much between DFT and FFT.
 I've fixed the Haskell code for DFT (slide 7) and the corresponding pictures (slides 34, 36, 38).
 
-### Extras
+### Extras (added September 18, 2016)
 
 The talk shows FFT for top-down and bottom-up perfect binary leaf trees trees (right- and left-associated `Pair` compositions). Later, I tried out a different data type---a sort of balanced counterpart to left- and right-associated composition:
 

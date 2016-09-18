@@ -37,4 +37,4 @@ The work and "depth" (ideal parallel time) improves on both bottom-up and top-do
 
 To do: coalesce the accidentally distinct constants (different numeric approximations of the same real value), and compare again.
 
-I've added a few new slides to the end of the talk, including pictures and statistics, starting on slide 43.
+New pictures, statistics, and remarks [starting on slide 43](http://conal.net/talks/generic-fft.pdf).

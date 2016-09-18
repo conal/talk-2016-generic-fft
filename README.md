@@ -30,11 +30,11 @@ The talk shows FFT for top-down and bottom-up perfect binary leaf trees trees (r
 ``` haskell
 type family Bush n where
   Bush Z     = Pair
-  Bush (S n) = Bush n :.: Bush n
+  Bush (S n) = Bush n ∘ Bush n
 ```
 
-The work and "depth" (ideal parallel time) beats both bottom-up and top-down binary trees (DIF and DIT).
+The work and "depth" (ideal parallel time) improves on both bottom-up and top-down binary trees (the classic decimation-in-time and decimation-in-frequency algorithms).
 
 To do: coalesce the accidentally distinct redundant constants (different numeric approximations of the same real value), and compare again.
 
-I've added a few new slides to the end of the talk, starting on slide 43.
+I've added a few new slides to the end of the talk, including pictures and statistics, starting on slide 43.

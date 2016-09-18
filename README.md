@@ -33,25 +33,8 @@ type family Bush n where
   Bush (S n) = Bush n :.: Bush n
 ```
 
-A bush of height $n$ has size $2^{2^n}$, i.e., 2, 4, 16, 256, 65536, .... I tried parallel scan and FFT up to height three (size 256).
-
 The work and "depth" (ideal parallel time) beats both bottom-up and top-down binary trees (DIF and DIT).
-
-For 16 complex inputs and results:
-```
-fft-rb4  : 74 +, 40 ×, 74 −, 197 total. Max depth: 8.
-fft-lb4  : 74 +, 40 ×, 74 −, 197 total. Max depth: 8.
-fft-bush2: 72 +, 32 ×, 72 −, 186 total. Max depth: 6.
-```
-
-For 256 complex inputs and results:
-```
-fft-rb8  : 2690 +, 2582 ×, 2690 −, 8241 total. Max depth: 20.
-fft-lb8  : 2690 +, 2582 ×, 2690 −, 8241 total. Max depth: 20.
-fft-bush3: 2528 +, 1922 ×, 2528 −, 7310 total. Max depth: 14.
-```
 
 To do: coalesce the accidentally distinct redundant constants (different numeric approximations of the same real value), and compare again.
 
-I've added a few new slides to the end of the talk.
-
+I've added a few new slides to the end of the talk, starting on slide 43.

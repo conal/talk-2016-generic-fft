@@ -35,6 +35,6 @@ type family Bush n where
 
 The work and "depth" (ideal parallel time) improves on both bottom-up and top-down binary trees (the classic decimation-in-time and decimation-in-frequency algorithms).
 
-To do: coalesce the accidentally distinct redundant constants (different numeric approximations of the same real value), and compare again.
+To do: coalesce the accidentally distinct constants (different numeric approximations of the same real value), and compare again.
 
 I've added a few new slides to the end of the talk, including pictures and statistics, starting on slide 43.

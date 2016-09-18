@@ -2,7 +2,7 @@
 
 A [talk given at the Silicon Valley Haskell meetup](https://www.meetup.com/haskellhackers/events/233268893/), August 31, 2016.
 
-*   [Slides (PDF)](http://conal.net/talks/generic-fft.pdf)
+*   [Slides (PDF)](http://conal.net/talks/generic-fft.pdf) (updated September 18, 2016)
 *   [Video](https://www.youtube.com/watch?v=Qam6t9EN5SQ)
 
 ### Abstract

@@ -620,13 +620,13 @@ In contrast to array algorithms:
 Notes:
 \begin{itemize}
 \item
-Balanced counterpart to |LPow| and |RPow|.
+Composition-balanced counterpart to |LPow| and |RPow|.
 \item
 Variation of |Bush| type in \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.184.8120}{\emph{Nested Datatypes}} by Bird \& Meertens.
 \item
 Size $2^{2^n}$, i.e., $2, 4, 16, 256, 65536, \ldots$.
 \item
-We can generalize beyond |Pair| and squaring.
+Easily generalizes beyond |Pair| and squaring.
 \end{itemize}
 
 }

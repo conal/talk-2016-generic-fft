@@ -626,7 +626,7 @@ Variation of |Bush| type in \href{http://citeseerx.ist.psu.edu/viewdoc/summary?d
 \item
 Size $2^{2^n}$, i.e., $2, 4, 16, 256, 65536, \ldots$.
 \item
-Easily generalizes beyond |Pair| and squaring.
+Easily generalizes beyond pairing and squaring.
 \end{itemize}
 
 }

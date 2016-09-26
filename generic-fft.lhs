@@ -25,6 +25,9 @@
 \usepackage{setspace}
 \usepackage{enumerate}
 \usepackage{tikzsymbols}
+\usepackage[many]{tcolorbox}
+
+\tcbset{enhanced,boxrule=0.5pt,colframe=black!50!blue,colback=white,boxsep=-2pt,drop fuzzy shadow}
 
 \usepackage[absolute,overlay]{textpos}  % ,showboxes
 
@@ -53,9 +56,6 @@
 \setlength{\itemsep}{2ex}
 \setlength{\parskip}{1ex}
 \setlength{\blanklineskip}{1.5ex}
-
-% \setlength{\blanklineskip}{1.5ex}
-
 \setlength\mathindent{4ex}
 
 %%%%
@@ -179,9 +179,17 @@ Direct implementation does $O(N^2)$ work.
 %% \setlength{\fboxsep}{0pt}
 
 \newcommand{\upperDFT}{
+%if False
 \begin{textblock}{100}[1,0](348,13)
 {\colorbox{shadecolor}{{\large $X_k = \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$}}}
 \end{textblock}
+%else
+\begin{textblock}{120}[1,0](348,9)
+\begin{tcolorbox}
+\large $X_k = \sum\limits_{n=0}^{N-1} x_n e^{\frac{-i2\pi kn}{N}}$
+\end{tcolorbox}
+\end{textblock}
+%endif
 }
 
 
@@ -368,9 +376,17 @@ How might we implement in Haskell?
 %% \definecolor{white}{rgb}{1,1,1}
 
 \newcommand{\upperCT}{
+%if True
+\begin{textblock}{153}[1,0](353,7)
+\begin{tcolorbox}
+\wpicture{1.9in}{cooley-tukey-general}
+\end{tcolorbox}
+\end{textblock}
+%else
 \begin{textblock}{149}[1,0](353,12)
 \colorbox{white}{\fbox{\wpicture{2in}{cooley-tukey-general}}}
 \end{textblock}
+%endif
 }
 
 \framet{Factoring DFT --- Haskell}{\upperCT

@@ -61,55 +61,12 @@
 \nc\figrefdefwide[3]{\figref{#1}\figdefwide{#1}{#2}{#3}}
 
 
-% Image format: PNG or JPEG?  JPEG lets us shrink the files, at some cost
-% in fidelity.  Png is much slower to process even when the files are
-% smaller.  I guess there's some conversion process going on.
-% JPEG compressed at 35x, the figures are smaller and faster to
-% process than png.  The eps files are huge (about 80x). 
-% Since PNG is lossless, keep the master figures in that format and convert.
-
-
-\nc\picext{png}
-%\nc\picext{jpg}
-%\nc\picext{eps}
-%\nc\picext{tif}
-
-\nc\picfile[1]{pictures/\picext/#1.\picext}
-
-\nc\pict[1]{\includegraphics[width=3.2in]{\picfile{#1}}}
-
-\nc\picframe[1]{\frame{\pict{#1}}}
-\nc\picframewide[1]{\frame{\includegraphics[width=6in]{\picfile{#1}}}}
-
-\nc\picdef[2]{\figdef{#1}{#2}{\centering \picframe{#1}}}
-\nc\picdefwide[2]{\figdefwide{#1}{#2}{\picframewide{#1}}}
-
-\nc\picrefdef[2]{\picdef{#1}{#2}\figref{#1}}
-\nc\picrefdefwide[2]{\figref{#1}\picdefwide{#1}{#2}}
-
 \nc\figneeded[1]{\figdef{needed}{#1}}
 
-\nc\symTwo[1]{\mathbin{#1\!\!\!#1}}
-\nc\symThree[1]{\mathbin{#1\!\!\!#1\!\!\!#1}}
+%% \nc\symTwo[1]{\mathbin{#1\!\!\!#1}}
+%% \nc\symThree[1]{\mathbin{#1\!\!\!#1\!\!\!#1}}
 
-\nc{\lb}{[\![}
-\nc{\rb}{]\!]}
-\nc{\db}[1]{\lb#1\rb}
-
-\usepackage{tikz}
-%%%<
-%% \usepackage[active,tightpage]{preview}
-%% \PreviewEnvironment{tikzpicture}
-%%%>
 \usepackage{amsmath}
-
-%% \usepackage{tikz-cd}
-
-%% % I used tikz-cd version 0.3c, of December 30, 2012.
-%% % July 2012 version lacks a feature I use (shift left).
-
-%% \usetikzlibrary{matrix, calc, arrows}
-%% \tikzset{ ampersand replacement=\& }
 
 \nc\wpicture[2]{\includegraphics[width=#1]{#2}}
 
@@ -127,7 +84,6 @@
 \nc\hidden[1]{}
 
 \nc\Back{\!\!\!\!\!\!}
-
 
 \nc\pitem{\pause \item}
 

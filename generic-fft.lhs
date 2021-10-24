@@ -213,7 +213,7 @@ Direct implementation does $O(N^2)$ work.
 > powers = fst . lscanAla Product . pure
 >
 > ($@) :: ... => n (m a) -> m a -> n a   -- matrix $\times$ vector
-> mat $@ vec = (<.> vec) <$> mat
+> mat $@ vec = (NOP <.> vec) <$> mat
 >
 > (<.>) :: ... => f a -> f a -> a        -- dot product
 > u <.> v = sum (liftA2 (*) u v)
